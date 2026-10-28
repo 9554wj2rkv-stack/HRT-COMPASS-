@@ -24,4 +24,4 @@ All files sit side by side — no folders.
 
 ## Updating later
 
-Upload the changed files. If `index.html` changes, also raise the number in `sw.js` (`shell-2` → `shell-3`) and upload `sw.js`, so phones pick up the new version. Saved records are never affected by updates.
+Upload the changed files. If `index.html` changes, also raise the number in `sw.js` (`shell-5` → `shell-6`) and upload `sw.js`, so phones pick up the new version. Saved records are never affected by updates.

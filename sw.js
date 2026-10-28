@@ -6,7 +6,7 @@
    - The page itself is fetched network-first, so a new upload reaches users the next time they open the app
      with a connection; offline, the last cached copy is used. Updates never touch stored records. */
 const CACHE_PREFIX = 'hrt-compass-v2-';
-const CACHE = CACHE_PREFIX + 'shell-2';   // change the number when you upload a new version
+const CACHE = CACHE_PREFIX + 'shell-5';   // change the number when you upload a new version
 const SHELL = [
   './',
   './index.html',
