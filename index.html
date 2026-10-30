@@ -28,8 +28,8 @@
     --surface:#FFFDF9;
     --surface-2:#F4ECDF;
     --ink:#3D332B;
-    --ink-soft:#8A7E70;
-    --ink-faint:#B6AB9C;
+    --ink-soft:#6E6253;
+    --ink-faint:#8E8273;
     --accent:#E0518A;
     --accent-deep:#C73C72;
     --accent-soft:#F6D3E1;
@@ -425,6 +425,53 @@
   .install-hint p{margin:0;font-size:.86rem;line-height:1.45;color:var(--ink);}
   .install-hint b{color:var(--accent-deep);}
   .install-hint .ih-x{margin-left:auto;border:none;background:none;color:var(--ink-faint);font-size:1.1rem;cursor:pointer;flex:none;padding:0 2px;}
+
+  /* ============================================================
+     Layout safety — keep every control inside its card on mobile.
+     Overrides only; visual style unchanged. box-sizing:border-box
+     is already set globally on * above.
+     ============================================================ */
+  .card{overflow:visible;}                              /* shadows/rings not clipped */
+  /* flex children must be allowed to shrink below content width */
+  .two{min-width:0;}
+  .two > *{min-width:0;}                                /* date fields can shrink → no spill */
+  .cyc-summary{min-width:0;}
+  .cyc-est{min-width:0;}
+  .save-bar > *{min-width:0;}
+  .seg button{min-width:0;}
+  .score-row > *{min-width:0;}
+  .score-row .sr-name{min-width:0;overflow-wrap:anywhere;}
+  /* form controls never exceed their container */
+  input, select, textarea, .date-input, .dose-line input, .med-dose, .med-dose-inp{max-width:100%;}
+  .btn, .chip, .toggle-btn{max-width:100%;}
+  /* calendar: let the 7 columns shrink evenly instead of forcing overflow */
+  .cal-grid{grid-template-columns:repeat(7, minmax(0, 1fr));}
+  .cal-cell{min-width:0;}
+  /* very narrow phones: two-column rows stack cleanly */
+  @media (max-width:360px){
+    .two{flex-direction:column;gap:13px;}
+  }
+
+  /* ============================================================
+     Readability refinement — type sizes only. Palette, fonts,
+     card shapes and hierarchy unchanged. (Greys were darkened
+     in :root above for warmer contrast.)
+     ============================================================ */
+  .screen-title p{font-size:.95rem;}                 /* descriptions ~15px */
+  .ev-hint{font-size:.9rem;line-height:1.55;}        /* help/supporting text */
+  .about-summary{font-size:1rem;line-height:1.62;}   /* body ~16px */
+  .field > label{font-size:.85rem;}                   /* field labels */
+  .group-label{font-size:.74rem;}                     /* small-caps section labels */
+  .chip{font-size:.92rem;}                            /* button-style labels */
+  .seg button{font-size:.86rem;}                      /* segmented controls */
+  .btn-ghost.small{font-size:.82rem;}                 /* small ghost buttons */
+  .list-item .li-sub{font-size:.85rem;}
+  .avg-line{font-size:.9rem;}
+  .cyc-sub{font-size:.82rem;}
+  .score-row .sr-name{font-size:.95rem;}
+  .sel-summary .sr{font-size:.9rem;}
+  .legal-row{font-size:1rem;}                          /* legal menu rows */
+  nav button{font-size:.71rem;}                        /* bottom-nav labels, slightly larger */
 </style>
 </head>
 <body>
