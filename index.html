@@ -41,9 +41,81 @@
     --amber:#D9A23E;
     --line:#EBE1D2;
     --shadow:0 4px 18px rgba(120,90,60,.08);
+    --good-bg:var(--sage-soft); --good-text:#4f6647;
+    --nav-bg:rgba(255,253,249,.92);
+    --bad-bg:#F3E2DE; --bad-text:#9a5868;
     --radius:20px;
     --radius-sm:13px;
     font-size:16px;
+    color-scheme:light;
+  }
+
+  /* ===== Appearance: Dark theme (and System when device is dark) ===== */
+  :root[data-theme="dark"]{
+    --bg:#1C1820; --surface:#262029; --surface-2:#322B35;
+    --ink:#F2EAE2; --ink-soft:#C3B7B0; --ink-faint:#938693;
+    --accent:#E67FA6; --accent-deep:#F4A9C8; --accent-soft:#48303D;
+    --sage:#86A878; --sage-soft:#2F3C2B; --rose:#C58598;
+    --pink:#E67FA6; --pink-deep:#F4A9C8; --amber:#E0B25A;
+    --line:#3A3340; --shadow:0 4px 18px rgba(0,0,0,.38);
+    --good-bg:#2F3C2B; --good-text:#AFD3A0;
+      --nav-bg:rgba(32,27,34,.93);
+    --bad-bg:#45303A; --bad-text:#F2AABD;
+    color-scheme:dark;
+  }
+  /* ===== Appearance: Flirty — playful, feminine, a little glamorous (light family) ===== */
+  :root[data-theme="flirty"]{
+    --bg:#FCEDF1;              /* warm blush cream */
+    --surface:#FFF7FA;         /* near-white with a rosy warmth */
+    --surface-2:#FBDCE6;       /* soft blush */
+    --ink:#3A2430;             /* deep plum-brown, highly readable */
+    --ink-soft:#7D5566;        /* muted berry */
+    --ink-faint:#AE8798;       /* soft mauve */
+    --accent:#E8427F;          /* lipstick/rosy pink */
+    --accent-deep:#C21F63;     /* deep berry for text/strong */
+    --accent-soft:#FBD0E1;     /* blush for selected states */
+    --sage:#7E9A74; --sage-soft:#E3ECDC; --rose:#C65F86;
+    --pink:#E8427F; --pink-deep:#C21F63;
+    --amber:#C79A3E;           /* champagne gold hint */
+    --line:#F4CEDC;            /* soft pink hairline */
+    --shadow:0 6px 20px rgba(201,46,110,.14);  /* rosy, slightly glam */
+    --good-bg:#E3ECDC; --good-text:#4f6647;
+    --bad-bg:#F8D3DF; --bad-text:#B03468;
+    --nav-bg:rgba(255,247,250,.93);
+    color-scheme:light;
+  }
+  /* A touch more personality in Flirty: soft gradient primary buttons + gold-kissed day pill */
+  :root[data-theme="flirty"] .btn-primary{background:linear-gradient(135deg,#F2639B 0%,#E8427F 55%,#D62E73 100%);box-shadow:0 5px 16px rgba(216,46,115,.4);}
+  :root[data-theme="flirty"] .day-pill{border-color:var(--accent-soft);}
+  :root[data-theme="flirty"] .card{border-color:#F4CEDC;}
+
+  /* ===== Text size preference (root is rem-based, so all text scales) ===== */
+  :root[data-textsize="standard"]{font-size:16px;}
+  :root[data-textsize="large"]{font-size:18px;}
+  :root[data-textsize="xl"]{font-size:20px;}
+
+  /* ===== Layout preference ===== */
+  /* Comfort (default): stacked date fields, generous spacing */
+  :root[data-layout="comfort"] .two{flex-direction:column;gap:14px;}
+  :root[data-layout="comfort"] .field{margin-top:16px;}
+  :root[data-layout="comfort"] .card{padding:20px;}
+  :root[data-layout="comfort"] .save-bar{margin-top:20px;}
+  /* Classic: original side-by-side arrangement (overflow fixed by min-width:0) */
+  :root[data-layout="classic"] .two{flex-direction:row;gap:12px;}
+  /* Compact: efficient rows, less vertical whitespace (text size unchanged) */
+  :root[data-layout="compact"] .two{flex-direction:row;gap:10px;}
+  :root[data-layout="compact"] .card{padding:14px;margin-top:10px;}
+  :root[data-layout="compact"] .field{margin-top:9px;}
+  :root[data-layout="compact"] .group-label{margin-top:14px;}
+  :root[data-layout="compact"] .metric{padding:8px 0;}
+  :root[data-layout="compact"] .save-bar{margin-top:13px;}
+  /* Smallest screens: never let side-by-side rows clip — stack them */
+  @media (max-width:360px){
+    :root[data-layout="classic"] .two, :root[data-layout="compact"] .two{flex-direction:column;gap:12px;}
+  }
+  /* Respect reduced-motion */
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
@@ -115,8 +187,8 @@
     cursor:pointer;transition:.18s;display:flex;flex-direction:column;align-items:center;gap:5px;
   }
   .toggle-btn .emoji{font-size:1.4rem;}
-  .toggle-btn.on-yes.sel{background:var(--sage-soft);border-color:var(--sage);color:#4f6647;}
-  .toggle-btn.on-no.sel{background:#F3E2DE;border-color:var(--rose);color:#9a5868;}
+  .toggle-btn.on-yes.sel{background:var(--sage-soft);border-color:var(--sage);color:var(--good-text);}
+  .toggle-btn.on-no.sel{background:var(--bad-bg);border-color:var(--rose);color:var(--bad-text);}
   .dose-line{display:flex;align-items:center;gap:8px;margin-top:12px;color:var(--ink-soft);font-size:.9rem;}
   .dose-line input{
     flex:1;border:1.5px solid var(--line);background:var(--bg);border-radius:11px;
@@ -222,9 +294,9 @@
   .pcard-top{display:flex;align-items:center;justify-content:space-between;}
   .pcard-name{font-weight:600;font-size:.97rem;display:flex;align-items:center;gap:8px;}
   .badge{font-size:.72rem;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.02em;}
-  .badge.improving{background:var(--sage-soft);color:#4f6647;}
+  .badge.improving{background:var(--sage-soft);color:var(--good-text);}
   .badge.stable{background:var(--surface-2);color:var(--ink-soft);}
-  .badge.worse{background:#F3E2DE;color:#9a5868;}
+  .badge.worse{background:var(--bad-bg);color:var(--bad-text);}
   .badge.nodata{background:var(--surface-2);color:var(--ink-faint);}
   .milestones{display:flex;gap:6px;margin-top:13px;}
   .ms{flex:1;text-align:center;background:var(--bg);border-radius:11px;padding:9px 4px;}
@@ -251,7 +323,7 @@
   /* nav */
   nav{
     position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:560px;
-    background:rgba(255,253,249,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+    background:var(--nav-bg);backdrop-filter:blur(12px);border-top:1px solid var(--line);
     display:flex;padding:8px 6px calc(8px + env(safe-area-inset-bottom));z-index:40;
   }
   nav button{
@@ -279,7 +351,9 @@
   .counter-chips button.sel{background:var(--accent);border-color:var(--accent);color:#fff;}
   .weight-note{font-size:.78rem;color:var(--ink-soft);margin-top:9px;line-height:1.4;}
   .gel-suggest{font-size:.8rem;font-weight:600;color:var(--accent-deep);margin:2px 0 0;}
-  .med-bar{display:flex;align-items:center;justify-content:space-between;margin:2px 2px 10px;}
+  .med-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:2px 2px 10px;}
+  .med-bar-title{min-width:0;}
+  .med-bar > div{flex-wrap:wrap;gap:8px;}
   .med-bar-title{font-family:'Fraunces';font-weight:600;font-size:1.05rem;color:var(--ink);}
   .btn-ghost.small{padding:8px 12px;font-size:.78rem;border-radius:10px;flex:none;}
   .about-summary{font-size:.95rem;line-height:1.6;color:var(--ink);margin:2px 0 14px;}
@@ -315,8 +389,8 @@
   .med-name{font-weight:600;font-size:.95rem;}
   .med-tog{display:flex;gap:6px;}
   .med-btn{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px;font-family:inherit;font-weight:600;font-size:.82rem;color:var(--ink-soft);cursor:pointer;}
-  .med-btn.yes.sel{background:var(--sage-soft);border-color:var(--sage);color:#4f6647;}
-  .med-btn.no.sel{background:#F3E2DE;border-color:var(--rose);color:#9a5868;}
+  .med-btn.yes.sel{background:var(--sage-soft);border-color:var(--sage);color:var(--good-text);}
+  .med-btn.no.sel{background:var(--bad-bg);border-color:var(--rose);color:var(--bad-text);}
   .med-dose{width:100%;border:1.5px solid var(--line);background:var(--bg);border-radius:11px;padding:10px 12px;font-family:inherit;font-size:.9rem;color:var(--ink);margin-top:8px;}
   .med-dose:focus{outline:none;border-color:var(--accent-soft);}
 
@@ -332,7 +406,7 @@
   .cyc-est.none{color:var(--ink-soft);border-left:none;font-style:italic;padding-left:0;}
   .cyc-est .conf{font-weight:700;font-size:.72rem;padding:4px 9px;border-radius:8px;display:inline-block;margin-top:2px;}
   .cyc-est .conf.cal{background:var(--surface-2);color:var(--ink-soft);}
-  .cyc-est .conf.sup{background:var(--sage-soft);color:#4f6647;}
+  .cyc-est .conf.sup{background:var(--sage-soft);color:var(--good-text);}
   .cyc-insight{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);font-size:.8rem;line-height:1.45;color:var(--ink-soft);font-style:italic;}
 
   .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
@@ -387,8 +461,8 @@
   .imp-preview{margin-top:14px;background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:14px;font-size:.86rem;line-height:1.5;}
   .imp-preview .row{display:flex;justify-content:space-between;padding:3px 0;}
   .imp-preview .row b{font-family:'Fraunces';}
-  .imp-preview .warn{color:#9a5868;font-weight:600;margin-top:8px;}
-  .imp-preview .ok{color:#4f6647;font-weight:700;}
+  .imp-preview .warn{color:var(--bad-text);font-weight:600;margin-top:8px;}
+  .imp-preview .ok{color:var(--good-text);font-weight:700;}
 
   .score-hero{text-align:center;padding:4px 0 2px;}
   .score-hero .sh-lbl{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);font-weight:700;}
@@ -447,10 +521,31 @@
   /* calendar: let the 7 columns shrink evenly instead of forcing overflow */
   .cal-grid{grid-template-columns:repeat(7, minmax(0, 1fr));}
   .cal-cell{min-width:0;}
-  /* very narrow phones: two-column rows stack cleanly */
-  @media (max-width:360px){
-    .two{flex-direction:column;gap:13px;}
+
+  /* ============================================================
+     DATE-INPUT HARDENING — the real overflow cause on iOS Safari.
+     iOS gives <input type="date"> a NATIVE control with an intrinsic
+     minimum width (from -webkit-appearance) that width:100% / min-width:0
+     do NOT override, so the control can push past its card — worst at
+     Large/XL text. Removing the native appearance lets width:100% win.
+     (Chromium renders date inputs differently, which is why earlier
+     Chromium-only tests looked fine while iOS still overflowed.)
+     ============================================================ */
+  input, textarea, .date-input, .dose-line input, .med-dose, .med-dose-inp{
+    -webkit-appearance:none; appearance:none;
+    width:100%; max-width:100%; min-width:0; box-sizing:border-box;
   }
+  input[type="date"]::-webkit-date-and-time-value{ text-align:left; margin:0; }
+  input[type="date"]::-webkit-datetime-edit{ padding:0; }
+  input[type="date"]::-webkit-calendar-picker-indicator{ margin:0 0 0 auto; }
+  /* Date pairs (Start/End): side-by-side only when there is real room,
+     otherwise wrap to stacked — they never shrink into overflow. */
+  :root[data-layout="classic"] .two,
+  :root[data-layout="compact"] .two{flex-wrap:wrap;}
+  :root[data-layout="classic"] .two > .field,
+  :root[data-layout="compact"] .two > .field{flex:1 1 calc(50% - 6px); min-width:150px;}
+  /* Comfort always stacks date fields (full width, guaranteed inside card) */
+  :root[data-layout="comfort"] .two > .field{min-width:0; width:100%;}
 
   /* ============================================================
      Readability refinement — type sizes only. Palette, fonts,
@@ -472,7 +567,58 @@
   .sel-summary .sr{font-size:.9rem;}
   .legal-row{font-size:1rem;}                          /* legal menu rows */
   nav button{font-size:.71rem;}                        /* bottom-nav labels, slightly larger */
+
+  /* ===== Settings: gear button + Appearance & Layout sheet ===== */
+  .head-right{display:flex;align-items:center;gap:10px;}
+  .gear-btn{width:40px;height:40px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);
+    color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:var(--shadow);}
+  .gear-btn svg{width:21px;height:21px;}
+  .gear-btn:active{transform:translateY(1px);}
+  .set-intro{font-size:.92rem;line-height:1.55;color:var(--ink-soft);margin:0 0 20px;}
+  .set-group{margin-bottom:24px;}
+  .set-label{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);font-weight:700;margin-bottom:10px;}
+  .set-cards{display:flex;gap:10px;}
+  .set-card{flex:1;min-width:0;background:var(--surface);border:2px solid var(--line);border-radius:15px;
+    padding:12px 8px;cursor:pointer;font-family:inherit;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;}
+  .set-card b{font-size:.92rem;font-weight:700;}
+  .set-card small{font-size:.74rem;color:var(--ink-soft);line-height:1.3;}
+  .set-card.sel{border-color:var(--accent);background:var(--accent-soft);}
+  /* mini layout previews */
+  .lp{width:46px;height:40px;border-radius:7px;background:var(--surface-2);display:flex;flex-direction:column;gap:3px;padding:6px;}
+  .lp i{display:block;background:var(--ink-faint);border-radius:2px;opacity:.6;height:5px;}
+  .lp-comfort i{width:100%;}
+  .lp-classic{flex-direction:row;flex-wrap:wrap;align-content:flex-start;}
+  .lp-classic i{width:46%;height:7px;}
+  .lp-compact{gap:2px;}
+  .lp-compact i{width:100%;height:4px;}
+  .set-card.sel .lp i{background:var(--accent);opacity:.8;}
+  .set-opts{display:flex;gap:8px;}
+  .set-opt{flex:1;min-width:0;background:var(--surface);border:2px solid var(--line);border-radius:13px;
+    padding:12px 6px;cursor:pointer;font-family:inherit;font-weight:600;font-size:.82rem;color:var(--ink);
+    display:flex;flex-direction:column;align-items:center;gap:6px;line-height:1.2;}
+  .set-opt > span:first-child{color:var(--ink-soft);}
+  .set-opt.sel{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-deep);}
+  .set-opt.sel > span:first-child{color:var(--accent-deep);}
+  .sw{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line);flex:none;}
+  .sw-light{background:#FAF6EF;}
+  .sw-dark{background:#1C1820;}
+  .sw-flirty{background:linear-gradient(135deg,#FCEDF1 0%,#F2639B 55%,#C21F63 100%);}
+  .set-foot{font-size:.82rem;color:var(--ink-faint);margin:4px 0 0;line-height:1.5;}
+  .legal-link{color:var(--accent-deep);font-weight:700;text-decoration:none;}
+  .app a, .reader-scroll a{color:var(--accent-deep);}
 </style>
+<script>
+/* Appearance prefs are presentation-only and live in their OWN key,
+   never in hrt_tracker_v1. Applied before paint to avoid any flash. */
+(function(){
+  var d=document.documentElement, p={};
+  try{ p=JSON.parse(localStorage.getItem('hrt_compass_prefs')||'{}')||{}; }catch(e){}
+  var themes={light:1,dark:1,flirty:1};
+  d.setAttribute('data-layout',   p.layout   || 'comfort');
+  d.setAttribute('data-textsize', p.textsize || 'large');
+  d.setAttribute('data-theme',    themes[p.theme] ? p.theme : 'light');
+})();
+</script>
 </head>
 <body>
 <div class="app">
@@ -481,7 +627,12 @@
       <div class="mark"><svg viewBox="0 0 24 24" fill="none"><polygon points="12,3 15.2,12 12,10.8 8.8,12" fill="#fff"/><polygon points="12,21 8.8,12 12,13.2 15.2,12" fill="rgba(255,255,255,.55)"/></svg></div>
       <h1>HRT Compass<span>Progress tracker</span></h1>
     </div>
-    <div class="day-pill" id="dayPill">Cycle day<br><b id="cycleDayHdr">—</b></div>
+    <div class="head-right">
+      <div class="day-pill" id="dayPill">Cycle day<br><b id="cycleDayHdr">—</b></div>
+      <button class="gear-btn" id="gearBtn" aria-label="Appearance & layout settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
   </header>
 
   <div class="install-hint" id="installHint">
@@ -754,6 +905,55 @@
   </div>
   <div class="reader-scroll"><div class="inner" id="readerBody"></div></div>
 </div>
+
+<div class="reader" id="settingsSheet">
+  <div class="reader-top">
+    <button class="reader-back" id="settingsBack">‹ Done</button>
+    <span class="reader-title">Appearance &amp; Layout</span>
+  </div>
+  <div class="reader-scroll"><div class="inner">
+    <p class="set-intro">Make HRT Compass comfortable for you. These choices change only how the app looks — your records are never affected. Changes apply instantly and are saved on this device.</p>
+
+    <div class="set-group">
+      <div class="set-label">Layout</div>
+      <div class="set-cards" id="setLayout">
+        <button class="set-card" data-val="comfort">
+          <span class="lp lp-comfort"><i></i><i></i><i></i></span>
+          <b>Comfort</b><small>Spacious, stacked fields</small>
+        </button>
+        <button class="set-card" data-val="classic">
+          <span class="lp lp-classic"><i></i><i></i><i></i></span>
+          <b>Classic</b><small>Side-by-side fields</small>
+        </button>
+        <button class="set-card" data-val="compact">
+          <span class="lp lp-compact"><i></i><i></i><i></i><i></i></span>
+          <b>Compact</b><small>More on screen</small>
+        </button>
+      </div>
+    </div>
+
+    <div class="set-group">
+      <div class="set-label">Text size</div>
+      <div class="set-opts" id="setText">
+        <button class="set-opt" data-val="standard"><span style="font-size:15px;">Aa</span>Standard</button>
+        <button class="set-opt" data-val="large"><span style="font-size:19px;">Aa</span>Large</button>
+        <button class="set-opt" data-val="xl"><span style="font-size:23px;">Aa</span>Extra Large</button>
+      </div>
+    </div>
+
+    <div class="set-group">
+      <div class="set-label">Appearance</div>
+      <div class="set-opts" id="setTheme">
+        <button class="set-opt" data-val="light"><span class="sw sw-light"></span>Light</button>
+        <button class="set-opt" data-val="dark"><span class="sw sw-dark"></span>Dark</button>
+        <button class="set-opt" data-val="flirty"><span class="sw sw-flirty"></span>Flirty</button>
+      </div>
+    </div>
+
+    <p class="set-foot">Tip: “Flirty” adds a playful, rosy-pink glow — same clean, readable layout, a little more personality.</p>
+  </div></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -848,6 +1048,30 @@ function openLegal(key){
   r.querySelector('.reader-scroll').scrollTop=0;
 }
 function closeLegal(){ document.getElementById('legalReader').classList.remove('show'); }
+
+/* ===== Appearance & Layout preferences (presentation-only, own key) ===== */
+const PREFS_KEY='hrt_compass_prefs';
+const PREFS_DEF={layout:'comfort', textsize:'large', theme:'light'};
+function loadPrefs(){ var p; try{ p=Object.assign({}, PREFS_DEF, JSON.parse(localStorage.getItem(PREFS_KEY)||'{}')); }catch(e){ p=Object.assign({}, PREFS_DEF); }
+  if(['light','dark','flirty'].indexOf(p.theme)<0) p.theme='light';
+  if(['comfort','classic','compact'].indexOf(p.layout)<0) p.layout='comfort';
+  if(['standard','large','xl'].indexOf(p.textsize)<0) p.textsize='large';
+  return p; }
+function savePrefs(p){ try{ localStorage.setItem(PREFS_KEY, JSON.stringify(p)); }catch(e){} }   /* never touches hrt_tracker_v1 */
+function applyPrefs(p){
+  const d=document.documentElement;
+  d.setAttribute('data-layout', p.layout);
+  d.setAttribute('data-textsize', p.textsize);
+  d.setAttribute('data-theme', p.theme);
+}
+function markSettings(p){
+  document.querySelectorAll('#setLayout .set-card').forEach(b=>b.classList.toggle('sel', b.dataset.val===p.layout));
+  document.querySelectorAll('#setText .set-opt').forEach(b=>b.classList.toggle('sel', b.dataset.val===p.textsize));
+  document.querySelectorAll('#setTheme .set-opt').forEach(b=>b.classList.toggle('sel', b.dataset.val===p.theme));
+}
+function openSettings(){ markSettings(loadPrefs()); document.getElementById('settingsSheet').classList.add('show'); }
+function closeSettings(){ document.getElementById('settingsSheet').classList.remove('show'); }
+function setPref(kind,val){ const p=loadPrefs(); p[kind]=val; savePrefs(p); applyPrefs(p); markSettings(p); }
 const METRICS = [
   {id:'energy',     name:'Energy',         ico:'⚡', dir:'pos', anchor:['drained','energised']},
   {id:'mood',       name:'Mood',           ico:'🌤️', dir:'pos', anchor:['low','great']},
@@ -2207,6 +2431,11 @@ function bind(){
   document.getElementById('exportFullBtn').onclick=exportFullBackup;
   document.querySelectorAll('.legal-row').forEach(r=>{ r.onclick=()=>openLegal(r.dataset.legal); });
   document.getElementById('readerBack').onclick=closeLegal;
+  document.getElementById('gearBtn').onclick=openSettings;
+  document.getElementById('settingsBack').onclick=closeSettings;
+  document.querySelectorAll('#setLayout .set-card').forEach(b=>{ b.onclick=()=>setPref('layout', b.dataset.val); });
+  document.querySelectorAll('#setText .set-opt').forEach(b=>{ b.onclick=()=>setPref('textsize', b.dataset.val); });
+  document.querySelectorAll('#setTheme .set-opt').forEach(b=>{ b.onclick=()=>setPref('theme', b.dataset.val); });
   document.getElementById('welcomePrivacy').onclick=(e)=>{ e.preventDefault(); go('report'); openLegal('privacy'); };
   document.getElementById('fullRestoreFile').onchange=e=>{
     const f=e.target.files&&e.target.files[0]; if(!f) return;
