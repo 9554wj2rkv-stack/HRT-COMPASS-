@@ -606,6 +606,136 @@
   .set-foot{font-size:.82rem;color:var(--ink-faint);margin:4px 0 0;line-height:1.5;}
   .legal-link{color:var(--accent-deep);font-weight:700;text-decoration:none;}
   .app a, .reader-scroll a{color:var(--accent-deep);}
+
+/* ===== Recovered Oct-28 features: reflection, sheets, symptoms, starting point, welcome ===== */
+  .edu-topic{border:1px solid var(--line);border-radius:13px;margin-top:10px;background:var(--bg);}
+  .edu-topic summary{padding:13px 14px;font-weight:600;font-size:.95rem;color:var(--ink);}
+  .edu-topic summary span{color:var(--ink-soft);font-weight:500;}
+  .edu-topic p{margin:0;padding:0 14px 14px;font-size:.9rem;line-height:1.55;color:var(--ink);}
+  .edu-note{margin:14px 0 0;padding:13px 14px;border-radius:13px;background:var(--accent-soft);color:var(--ink);font-size:.9rem;line-height:1.5;font-style:italic;}
+  .edu-disclaimer{margin:10px 2px 0;font-size:.78rem;line-height:1.45;color:var(--ink-soft);}
+  /* My Reflection Space */
+  .rf-q{font-weight:600;font-size:.98rem;color:var(--ink);margin-top:6px;}
+  .rf-stress-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 10px;}
+  .rf-stress-val{font-family:'Fraunces';font-size:1.5rem;font-weight:600;color:var(--ink-faint);}
+  .rf-stress-val.set{color:var(--accent-deep);}
+  .rf-stress-val small{font-family:'DM Sans';font-size:.8rem;font-weight:500;color:var(--ink-soft);}
+  .rf-link{border:none;background:none;font-family:inherit;font-size:.85rem;font-weight:600;color:var(--ink-soft);text-decoration:underline;cursor:pointer;padding:8px 2px;}
+  .rf-sub{font-size:.78rem;color:var(--ink-soft);margin-top:7px;}
+  #reflectCard textarea{font-size:1rem;line-height:1.5;}
+  #rfText{min-height:120px;}
+  .rf-edit{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--accent-soft);color:var(--ink);border-radius:13px;padding:10px 12px;font-size:.86rem;margin-bottom:6px;}
+  .rf-edit[hidden]{display:none;}
+  .rf-msg{margin-top:10px;font-size:.88rem;line-height:1.45;text-align:center;color:var(--ink-soft);min-height:1px;}
+  .rf-msg.ok{color:var(--good-text);font-weight:600;}
+  .rf-msg.warn{color:var(--bad-text);font-weight:600;}
+  .rf-draft{font-size:.78rem;color:var(--ink-soft);margin-top:10px;text-align:center;}
+  .rf-draft[hidden]{display:none;}
+  .rf-fold > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;}
+  .rf-fold > summary::-webkit-details-marker{display:none;}
+  .rf-fold > summary h3{font-size:1.06rem;flex:1;min-width:0;}
+  .rf-fold > summary .edu-chev{flex:none;color:var(--ink-soft);font-size:.85rem;transition:transform .2s;}
+  .rf-fold[open] > summary .edu-chev{transform:rotate(180deg);}
+  .rf-count{flex:none;font-size:.78rem;font-weight:700;color:var(--accent-deep);background:var(--accent-soft);border-radius:999px;padding:3px 9px;}
+  .rf-count:empty{display:none;}
+  .rf-fold-body{margin-top:12px;}
+  .rf-item{border:1px solid var(--line);border-radius:14px;background:var(--bg);margin-top:10px;overflow:hidden;}
+  .rf-item-head{width:100%;border:none;background:none;font-family:inherit;text-align:left;cursor:pointer;padding:13px 14px;display:flex;flex-direction:column;gap:6px;color:var(--ink);}
+  .rf-item-top{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .rf-when{font-size:.8rem;font-weight:700;color:var(--accent-deep);letter-spacing:.01em;}
+  .rf-badge{flex:none;font-size:.78rem;font-weight:700;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 9px;}
+  .rf-tags{display:flex;flex-wrap:wrap;gap:5px;}
+  .rf-tag{font-size:.74rem;font-weight:600;color:var(--ink-soft);background:var(--surface-2);border-radius:999px;padding:3px 9px;}
+  .rf-preview{font-size:.9rem;line-height:1.45;color:var(--ink);overflow-wrap:anywhere;}
+  .rf-full{padding:0 14px 14px;border-top:1px solid var(--line);}
+  .rf-full h4{margin:12px 0 4px;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;}
+  .rf-full p{margin:0;font-size:.95rem;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink);}
+  .rf-edited{font-size:.76rem;color:var(--ink-soft);margin-top:10px;}
+  .rf-actions{display:flex;gap:10px;margin-top:14px;}
+  .rf-actions .btn{padding:12px;font-size:.92rem;}
+  .rf-del{color:var(--bad-text);}
+  .rf-choice{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .rf-choice label{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);font-size:.86rem;line-height:1.4;cursor:pointer;}
+  .rf-choice input{margin-top:2px;accent-color:var(--accent);width:18px;height:18px;flex:none;}
+  /* Sheets: Manage my symptoms + My HRT Starting Point */
+  .sheet{position:fixed;inset:0;z-index:90;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;
+    padding:calc(12px + env(safe-area-inset-top)) 18px calc(28px + env(safe-area-inset-bottom));}
+  .sheet[hidden]{display:none;}
+  .sheet-inner{max-width:560px;margin:0 auto;}
+  .sheet-head{position:sticky;top:calc(-12px - env(safe-area-inset-top));z-index:2;background:var(--bg);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 2px 10px;}
+  .sheet-head h2{font-size:1.45rem;line-height:1.2;}
+  .sheet-x{flex:none;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;min-height:44px;padding:0 18px;font-family:inherit;font-weight:700;font-size:.95rem;color:var(--ink);cursor:pointer;}
+  .sym-sec{margin-top:18px;}
+  .sym-sec h4{margin:0 2px 6px;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;}
+  .sym-list{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:2px 14px;}
+  .sym-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);}
+  .sym-row:last-child{border-bottom:none;}
+  .sym-row .nm{font-weight:600;font-size:.95rem;min-width:0;overflow-wrap:anywhere;}
+  .sym-row .nm small{display:block;font-weight:500;font-size:.76rem;color:var(--ink-soft);margin-top:2px;}
+  .sym-act{flex:none;min-height:40px;min-width:72px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);font-family:inherit;font-weight:700;font-size:.86rem;color:var(--ink);cursor:pointer;padding:0 14px;}
+  .sym-act.add{border-color:var(--accent);color:var(--accent-deep);background:var(--accent-soft);}
+  .sym-new{display:flex;gap:8px;margin-top:8px;}
+  .sym-new input{flex:1;min-width:0;}
+  .sym-new .btn{flex:none;padding:0 18px;min-height:48px;}
+  .sym-msg{font-size:.84rem;margin-top:8px;color:var(--bad-text);font-weight:600;min-height:1px;}
+  .safety{margin-top:18px;padding:13px 14px;border-radius:13px;background:var(--surface-2);font-size:.82rem;line-height:1.5;color:var(--ink);}
+  .safety b{color:var(--accent-deep);}
+  .bp-dots{display:flex;gap:6px;justify-content:center;margin:4px 0 14px;}
+  .bp-dots i{width:8px;height:8px;border-radius:999px;background:var(--line);}
+  .bp-dots i.on{background:var(--accent);width:22px;}
+  .bp-step h3{font-size:1.25rem;line-height:1.3;}
+  .bp-sub{margin:6px 0 4px;font-size:.88rem;line-height:1.5;color:var(--ink-soft);}
+  .bp-check{display:flex;align-items:flex-start;gap:12px;margin-top:14px;padding:13px 14px;border:1.5px solid var(--line);border-radius:13px;background:var(--surface);font-size:.9rem;line-height:1.45;cursor:pointer;}
+  .bp-check input{width:20px;height:20px;flex:none;margin-top:1px;accent-color:var(--accent);}
+  .bp-nav{display:flex;gap:10px;margin-top:22px;}
+  .bp-nav .btn[hidden]{display:none;}
+  .bp-skip{display:block;margin:10px auto 0;}
+  .bp-goals{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+  .bp-goals .chip{flex:0 1 auto;padding:10px 13px;}
+  .bp-goals .chip:disabled{opacity:.45;}
+  .bp-count{font-size:.84rem;font-weight:700;color:var(--accent-deep);margin-top:10px;}
+  .bp-more{margin-top:12px;}
+  .bp-card-empty p{margin:6px 0 14px;}
+  .bp-meta{font-size:.88rem;color:var(--ink-soft);margin-top:4px;line-height:1.45;}
+  .bp-pill{display:inline-block;margin-top:8px;font-size:.76rem;font-weight:700;color:var(--ink);background:var(--surface-2);border-radius:999px;padding:4px 10px;}
+  .bp-goal{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:var(--accent-soft);margin-top:8px;font-size:.9rem;}
+  .bp-goal b{font-weight:700;}
+  .bp-goal span{color:var(--ink);font-size:.82rem;text-align:right;}
+  .bp-pers{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+  .bp-pers button{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;min-height:40px;padding:0 13px;font-family:inherit;font-weight:600;font-size:.84rem;color:var(--ink-soft);cursor:pointer;}
+  .bp-pers button.sel{background:var(--ink);border-color:var(--ink);color:#fff;}
+  .bp-sum{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px;}
+  .bp-sum div{background:var(--bg);border-radius:12px;padding:10px 12px;}
+  .bp-sum small{display:block;font-size:.72rem;font-weight:700;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase;}
+  .bp-sum b{display:block;font-family:'Fraunces';font-size:1.1rem;margin-top:3px;}
+  .bp-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);}
+  .bp-row:last-child{border-bottom:none;}
+  .bp-row .nm{font-weight:600;font-size:.9rem;min-width:0;overflow-wrap:anywhere;}
+  .bp-row .nm small{display:block;font-weight:500;font-size:.75rem;color:var(--ink-soft);}
+  .bp-row .vals{flex:none;text-align:right;font-size:.84rem;color:var(--ink);}
+  .bp-tag{display:inline-block;margin-top:3px;font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 8px;background:var(--surface-2);color:var(--ink-soft);}
+  .bp-tag.up{background:var(--sage-soft);color:var(--good-text);}
+  .bp-tag.down{background:var(--bad-bg);color:var(--bad-text);}
+  .bp-foot{font-size:.78rem;color:var(--ink-soft);line-height:1.5;margin-top:12px;}
+  .manage-sym{margin-top:14px;}
+  /* Welcome screen */
+  .welcome{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:calc(32px + env(safe-area-inset-top)) 28px calc(32px + env(safe-area-inset-bottom));text-align:center;overflow-y:auto;}
+  .welcome::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(70% 45% at 80% 0%, rgba(224,81,138,.10), transparent 60%),radial-gradient(60% 40% at 0% 100%, rgba(126,154,116,.08), transparent 60%);}
+  .welcome[hidden]{display:none;}
+  .welcome-inner{width:100%;max-width:400px;display:flex;flex-direction:column;align-items:center;}
+  .welcome .mark{width:72px;height:72px;box-shadow:0 6px 20px rgba(224,81,138,.35);}
+  .welcome .mark svg{width:40px;height:40px;}
+  .welcome-logo{width:132px;height:132px;border-radius:30px;box-shadow:0 10px 28px rgba(199,60,114,.22),0 2px 6px rgba(0,0,0,.06);}
+  .welcome-brand{margin-top:16px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;}
+  .welcome h1{margin-top:34px;font-size:2.3rem;line-height:1.15;}
+  .welcome h2{margin-top:10px;font-size:1.45rem;color:var(--ink);font-weight:500;}
+  .welcome p{margin:16px 0 0;font-size:1.02rem;line-height:1.55;color:var(--ink-soft);max-width:300px;}
+  .welcome .btn-start{margin-top:44px;width:100%;max-width:320px;min-height:56px;border:none;border-radius:999px;background:var(--accent);color:#fff;
+    font-family:inherit;font-size:1.06rem;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(224,81,138,.35);}
+  .welcome .btn-start:active{transform:scale(.98);}
+  .welcome .btn-start:focus{outline:none;}
 </style>
 <script>
 /* Appearance prefs are presentation-only and live in their OWN key,
@@ -621,6 +751,14 @@
 </script>
 </head>
 <body>
+<div class="welcome" id="welcome" role="dialog" aria-modal="true" aria-labelledby="welcomeGreeting" hidden>
+  <div class="welcome-inner">
+    <h1 id="welcomeGreeting">Good morning</h1>
+    <h2>Ready to check in?</h2>
+    <p>A moment for yourself. Let’s see how you’re feeling today.</p>
+    <button class="btn-start" id="welcomeStart">Start my check-in</button>
+  </div>
+</div>
 <div class="app">
   <header>
     <div class="brand">
@@ -639,6 +777,12 @@
     <div class="ih-mark"></div>
     <p id="installText"><b>Add HRT Compass to your Home Screen</b> so it opens like an app. Tap the Share button, then <b>Add to Home Screen</b>.</p>
     <button class="ih-x" id="installX">✕</button>
+  </div>
+
+  <div class="install-hint" id="dataNotice">
+    <div class="ih-mark"></div>
+    <p><b>Your data stays on this device.</b> Nothing you record is sent to a server. Because there is no online copy, records can be lost if the app is deleted or Safari’s website data is cleared. On iPhone, add the app to your Home Screen <b>before</b> you start tracking, and use <b>Report → Export full backup</b> regularly.</p>
+    <button class="ih-x" id="dataNoticeX" aria-label="Dismiss">✕</button>
   </div>
 
   <main>
@@ -692,6 +836,7 @@
         <div id="posMetrics"></div>
         <div class="group-label">Symptoms · lower is better</div>
         <div id="negMetrics"></div>
+        <button class="btn btn-ghost btn-full manage-sym" id="manageSymBtn">Manage my symptoms</button>
       </div>
 
       <div class="card">
@@ -823,12 +968,41 @@
     <!-- ============ PROGRESS ============ -->
     <section class="screen" id="s-progress">
       <div class="screen-title"><h2>Progress</h2><p>Trends, not perfection. Milestones from your start date.</p></div>
+      <div class="card" id="bpCard"></div>
       <div class="seg" id="progRange">
         <button data-range="14">14 days</button>
         <button data-range="30" class="sel">30 days</button>
         <button data-range="90">All / 90</button>
       </div>
       <div id="progressBody"></div>
+
+      <div class="card" id="reflectCard">
+        <div class="card-h"><h3>My Reflection Space</h3></div>
+        <p class="ev-hint">A quiet space to reflect on your day, notice what affects you and recognise what helps.</p>
+        <div class="rf-edit" id="rfEditBanner" hidden><span>Editing your reflection from <b id="rfEditWhen"></b></span><button class="rf-link" id="rfCancelEdit">Cancel</button></div>
+        <div class="rf-q" id="rfStressQ">How stressed do you feel today?</div>
+        <div class="rf-stress-top">
+          <div class="rf-stress-val" id="rfStressVal" aria-live="polite">Not answered</div>
+          <button class="rf-link" id="rfStressClear" hidden>Leave unanswered</button>
+        </div>
+        <div class="scale neg" id="rfStressScale" role="group" aria-labelledby="rfStressQ"></div>
+        <div class="anchors"><span>0 · Calm</span><span>Overwhelmed · 10</span></div>
+        <div class="field" style="margin-top:18px;"><label for="rfText">What’s on your mind?</label>
+          <textarea id="rfText" rows="5" placeholder="Write whatever feels important today…"></textarea></div>
+        <div class="field"><label id="rfInfLabel">What affected you today?</label>
+          <div class="chips wrap" id="rfInfluences" role="group" aria-labelledby="rfInfLabel"></div>
+          <div class="rf-sub">Choose any that apply — or none.</div></div>
+        <div class="field"><label for="rfHelped">What helped you feel better?</label>
+          <textarea id="rfHelped" rows="3" placeholder="A walk, a conversation, some rest…"></textarea></div>
+        <button class="btn btn-primary btn-full" id="saveReflection" style="margin-top:18px;">Save reflection</button>
+        <div class="rf-msg" id="rfMsg" role="status" aria-live="polite"></div>
+        <div class="rf-draft" id="rfDraftNote" hidden>Your unsaved reflection is kept on this device until you save it.</div>
+      </div>
+
+      <details class="card rf-fold" id="reflectHistory">
+        <summary><h3>My reflections</h3><span class="rf-count" id="rfCount"></span><span class="edu-chev" aria-hidden="true">▾</span></summary>
+        <div class="rf-fold-body" id="reflectList"></div>
+      </details>
 
       <div class="card" id="eventsCard">
         <div class="card-h"><h3>Significant events</h3></div>
@@ -954,6 +1128,21 @@
   </div></div>
 </div>
 
+<div class="sheet" id="symSheet" role="dialog" aria-modal="true" aria-labelledby="symSheetTitle" hidden>
+  <div class="sheet-inner">
+    <div class="sheet-head"><h2 id="symSheetTitle">Manage my symptoms</h2><button class="sheet-x" id="symSheetClose">Done</button></div>
+    <div id="symSheetBody"></div>
+  </div>
+</div>
+<div class="sheet" id="bpSheet" role="dialog" aria-modal="true" aria-labelledby="bpSheetTitle" hidden>
+  <div class="sheet-inner">
+    <div class="sheet-head"><h2 id="bpSheetTitle">My HRT Starting Point</h2><button class="sheet-x" id="bpSheetClose">Close</button></div>
+    <div class="bp-dots" id="bpDots" aria-hidden="true"></div>
+    <div class="bp-step" id="bpStep"></div>
+    <div class="bp-nav"><button class="btn btn-ghost" id="bpBack">Back</button><button class="btn btn-primary" id="bpNext">Next</button></div>
+    <button class="rf-link bp-skip" id="bpSkip">Skip this question</button>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -1120,7 +1309,7 @@ const HRT_SITE_ROTATION = [
 function load(){
   try{ return JSON.parse(localStorage.getItem(KEY)) || {}; }catch(e){ return {}; }
 }
-function blank(){ return {days:{}, periods:[], weeks:{}, events:[], meta:{startDate:null, dose:'Divigel 1 mg'}}; }
+function blank(){ return {days:{}, periods:[], weeks:{}, events:[], reflections:[], meta:{startDate:null, dose:'Divigel 1 mg'}}; }
 let DB = Object.assign(blank(), load());
 DB.days = DB.days||{}; DB.periods = DB.periods||[]; DB.weeks = DB.weeks||{}; DB.events = DB.events||[]; DB.meta = DB.meta||{};
 function save(){ localStorage.setItem(KEY, JSON.stringify(DB)); }
@@ -1234,10 +1423,541 @@ function renderGel(){
   const lbl=document.getElementById('gelSuggest');
   if(lbl){ const saved=d.gelSide&&d.gelArea; lbl.textContent=(saved?'Saved site: ':'Today’s site: ')+(siteLabel(effSide,effArea)||'—'); }
 }
+
+/* ===== RECOVERED MODULE: Manage My Symptoms =====
+   never duplicated. Added/custom symptom scores live in day.sym = {id: 0–10}; nothing else changes.
+   Preferences:  DB.meta.symptomPrefs = {version:1, hidden:[core ids], added:[library ids], custom:[{id,name,createdAt,active}]}
+   ============================================================ */
+const SYMPTOM_LIBRARY=[
+  {id:'palpitations',      name:'Heart palpitations',          ico:'💓'},
+  {id:'vaginalDryness',    name:'Vaginal dryness',             ico:'🌸'},
+  {id:'vaginalIrritation', name:'Vaginal irritation / burning',ico:'🌸'},
+  {id:'painfulSex',        name:'Pain during intercourse',     ico:'🌸'},
+  {id:'urinaryUrgency',    name:'Urinary urgency / frequency', ico:'💧'},
+  {id:'urinaryLeakage',    name:'Urinary leakage',             ico:'💧'},
+  {id:'sleepOnset',        name:'Difficulty falling asleep',   ico:'🛌'},
+  {id:'earlyWaking',       name:'Waking too early',            ico:'🌅'},
+  {id:'skinDryness',       name:'Skin dryness / itching',      ico:'🧴'},
+  {id:'hairThinning',      name:'Hair thinning / shedding',    ico:'💇'},
+  {id:'siteIrritation',    name:'Application-site irritation', ico:'🩹'},
+  {id:'moodSwings',        name:'Mood swings',                 ico:'🎢'},
+  {id:'dryEyes',           name:'Dry eyes',                    ico:'👁️'}
+];
+const LIB_BY_ID={}; SYMPTOM_LIBRARY.forEach(x=>LIB_BY_ID[x.id]=x);
+const METRIC_BY_ID={}; METRICS.forEach(m=>METRIC_BY_ID[m.id]=m);
+const CORE_SYM=METRICS.filter(m=>m.dir==='neg'), CORE_WELL=METRICS.filter(m=>m.dir==='pos');
+const SAFETY_NOTE='Symptoms can have many causes. Contact your doctor about unexplained, heavy or persistent bleeding, any bleeding after menopause, a new breast lump, chest pain, sudden breathlessness, a severe headache, painful leg swelling, or any new symptom that worries you — don’t assume it is caused by HRT.';
+function symPrefs(){
+  const p=DB.meta && DB.meta.symptomPrefs; const ok=p && typeof p==='object' && !Array.isArray(p);
+  const hidden = ok && Array.isArray(p.hidden) ? p.hidden.filter(x=>typeof x==='string' && METRIC_BY_ID[x] && METRIC_BY_ID[x].dir==='neg') : [];
+  const added  = ok && Array.isArray(p.added)  ? [...new Set(p.added.filter(x=>LIB_BY_ID[x]))] : [];
+  const seen=new Set();
+  const custom = ok && Array.isArray(p.custom) ? p.custom.filter(c=>c && typeof c.id==='string' && /^c_[a-z0-9_]{3,60}$/.test(c.id) && typeof c.name==='string' && c.name.trim() && !seen.has(c.id) && seen.add(c.id))
+                    .map(c=>({id:c.id, name:c.name.trim().slice(0,40), createdAt:typeof c.createdAt==='string'?c.createdAt:null, active:c.active!==false})) : [];
+  return {hidden, added, custom};
+}
+function setSymPrefs(pr){ DB.meta.symptomPrefs={version:1, hidden:pr.hidden, added:pr.added, custom:pr.custom}; save(); }
+function metricDef(id){
+  const m=METRIC_BY_ID[id]; if(m) return {id, name:m.name, ico:m.ico, dir:m.dir, anchor:m.anchor, kind:'core'};
+  const l=LIB_BY_ID[id]; if(l) return {id, name:l.name, ico:l.ico, dir:'neg', anchor:['none','severe'], kind:'lib'};
+  const c=symPrefs().custom.find(x=>x.id===id); if(c) return {id, name:c.name, ico:'✳️', dir:'neg', anchor:['none','severe'], kind:'custom'};
+  return null;
+}
+function allSymptomIds(){ const pr=symPrefs(); return [...CORE_SYM.map(m=>m.id), ...SYMPTOM_LIBRARY.map(x=>x.id), ...pr.custom.map(c=>c.id)]; }
+function visibleSymptoms(){ const pr=symPrefs(); return [...CORE_SYM.filter(m=>!pr.hidden.includes(m.id)).map(m=>m.id), ...pr.added, ...pr.custom.filter(c=>c.active).map(c=>c.id)]; }
+function symValue(d,id){
+  if(!d) return null;
+  if(METRIC_BY_ID[id]){ const v=d[id]; return v==null ? null : v; }          // existing fields, unchanged
+  const sy=d.sym; return (sy && typeof sy==='object' && typeof sy[id]==='number') ? sy[id] : null;
+}
+let symRowSig='';
+function renderSymptomRows(force){
+  const neg=document.getElementById('negMetrics'); if(!neg) return;
+  const d=curDay(), vis=visibleSymptoms();
+  const extra=allSymptomIds().filter(id=>!vis.includes(id) && symValue(d,id)!=null);   // hidden, but recorded on this day → still shown
+  const ids=[...vis, ...extra], sig=ids.join('|')+'#'+symPrefs().custom.map(c=>c.id+':'+c.name).join('|');
+  if(!force && sig===symRowSig) return;
+  symRowSig=sig; neg.innerHTML='';
+  ids.forEach(id=>{ const core=METRIC_BY_ID[id]; if(core) neg.appendChild(buildMetricRow(core)); else { const def=metricDef(id); if(def) neg.appendChild(buildExtraRow(def, !vis.includes(id))); } });
+  if(!ids.length){ const e=document.createElement('div'); e.className='empty'; e.textContent='No symptoms in your check-in. Tap “Manage my symptoms” to choose some.'; neg.appendChild(e); }
+}
+function buildExtraRow(def, isHidden){
+  const wrap=document.createElement('div'); wrap.className='metric'; wrap.dataset.xid=def.id;
+  wrap.innerHTML='<div class="metric-top"><div class="metric-name"><span class="ico"></span><span class="xn"></span></div><div class="metric-val">–</div></div><div class="scale neg"></div><div class="anchors"><span>0 · none</span><span>severe · 10</span></div>';
+  wrap.querySelector('.ico').textContent=def.ico;
+  wrap.querySelector('.xn').textContent=def.name+(isHidden?' (not in your check-in)':'');
+  const sc=wrap.querySelector('.scale');
+  for(let i=0;i<=10;i++){ const b=document.createElement('button'); b.textContent=i; b.setAttribute('aria-label',def.name+' '+i); b.onclick=()=>setExtra(def.id,i); sc.appendChild(b); }
+  return wrap;
+}
+function setExtra(id,v){
+  const d=DB.days[curDate]||(DB.days[curDate]={});
+  if(!d.sym || typeof d.sym!=='object' || Array.isArray(d.sym)) d.sym={};
+  if(d.sym[id]===v) delete d.sym[id]; else d.sym[id]=v;       // tap again to clear — unanswered stays blank, never 0
+  paintExtra(id);
+}
+function paintExtra(id){
+  const w=[...document.querySelectorAll('#negMetrics [data-xid]')].find(x=>x.dataset.xid===id); if(!w) return;
+  const v=symValue(curDay(),id);
+  [...w.querySelector('.scale').children].forEach((b,i)=>b.classList.toggle('sel', v!=null && i===v));
+  const el=w.querySelector('.metric-val'); el.textContent = v==null?'–':v; el.classList.toggle('set', v!=null);
+}
+
+/* ---------- Manage my symptoms ---------- */
+function openSheet(id){ const sh=document.getElementById(id); sh.hidden=false; sh.scrollTop=0; document.documentElement.style.overflow='hidden'; }
+function closeSheet(id){ document.getElementById(id).hidden=true; if(!document.querySelector('.sheet:not([hidden])') && document.getElementById('welcome').hidden) document.documentElement.style.overflow=''; }
+function mkEl(tag, cls, text){ const e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
+function symRow(name, sub, label, isAdd, fn){
+  const r=mkEl('div','sym-row'); const n=mkEl('div','nm',name); if(sub) n.appendChild(mkEl('small','',sub));
+  const b=mkEl('button','sym-act'+(isAdd?' add':''),label); b.setAttribute('aria-label',label+' '+name); b.onclick=fn;
+  r.appendChild(n); r.appendChild(b); return r;
+}
+let symMsgText='';
+function renderManage(){
+  const body=document.getElementById('symSheetBody'); body.innerHTML='';
+  const pr=symPrefs(), vis=visibleSymptoms();
+  body.appendChild(mkEl('p','ev-hint','Choose which symptoms appear in your daily check-in. Hiding a symptom never deletes anything you have already recorded.'));
+  const s1=mkEl('div','sym-sec'); s1.appendChild(mkEl('h4','','In my daily check-in'));
+  const l1=mkEl('div','sym-list');
+  if(!vis.length) l1.appendChild(mkEl('div','empty','Nothing selected yet.'));
+  vis.forEach(id=>{ const d=metricDef(id); if(d) l1.appendChild(symRow(d.name, d.kind==='custom'?'Your own symptom':'', 'Hide', false, ()=>hideSym(id))); });
+  s1.appendChild(l1); body.appendChild(s1);
+  const others=[...CORE_SYM.filter(m=>pr.hidden.includes(m.id)).map(m=>m.id), ...SYMPTOM_LIBRARY.map(x=>x.id).filter(id=>!pr.added.includes(id)), ...pr.custom.filter(c=>!c.active).map(c=>c.id)];
+  const s2=mkEl('div','sym-sec'); s2.appendChild(mkEl('h4','','Symptom library'));
+  const l2=mkEl('div','sym-list');
+  if(!others.length) l2.appendChild(mkEl('div','empty','Everything in the library is already in your check-in.'));
+  others.forEach(id=>{ const d=metricDef(id); if(!d) return; const recorded=Object.keys(DB.days).some(k=>symValue(DB.days[k],id)!=null);
+    l2.appendChild(symRow(d.name, d.kind==='custom'?'Your own symptom':(recorded?'Has earlier records':''), 'Add', true, ()=>showSym(id))); });
+  s2.appendChild(l2); body.appendChild(s2);
+  const s3=mkEl('div','sym-sec'); s3.appendChild(mkEl('h4','','Create your own'));
+  const row=mkEl('div','sym-new');
+  const inp=mkEl('input','date-input'); inp.id='symNewName'; inp.maxLength=40; inp.placeholder='e.g. Tingling hands'; inp.setAttribute('aria-label','New symptom name');
+  const add=mkEl('button','btn btn-primary','Add'); add.id='symNewAdd'; add.onclick=()=>addCustomSym(inp.value);
+  inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); addCustomSym(inp.value); } });
+  row.appendChild(inp); row.appendChild(add); s3.appendChild(row);
+  const msg=mkEl('div','sym-msg',symMsgText); msg.id='symMsg'; msg.setAttribute('role','status'); s3.appendChild(msg); symMsgText='';
+  s3.appendChild(mkEl('div','rf-sub','Rated 0 (none) to 10 (severe), like your other symptoms.'));
+  body.appendChild(s3);
+  body.appendChild(mkEl('p','bp-foot','Cycle signs — breast tenderness, bloating, dizziness, irritability, brain fog, fatigue, cramps, spotting and more — are tracked in the Cycle tab, so they are not repeated here.'));
+  const sf=mkEl('div','safety'); sf.appendChild(mkEl('b','','Please note: ')); sf.appendChild(document.createTextNode(SAFETY_NOTE)); body.appendChild(sf);
+}
+function afterSymChange(){ symRowSig=''; renderManage(); renderToday(); }
+function hideSym(id){ const pr=symPrefs();
+  if(METRIC_BY_ID[id]){ if(!pr.hidden.includes(id)) pr.hidden.push(id); }
+  else if(LIB_BY_ID[id]) pr.added=pr.added.filter(x=>x!==id);
+  else { const c=pr.custom.find(x=>x.id===id); if(c) c.active=false; }
+  setSymPrefs(pr); afterSymChange(); toast('Hidden — your past records are kept'); }
+function showSym(id){ const pr=symPrefs();
+  if(METRIC_BY_ID[id]) pr.hidden=pr.hidden.filter(x=>x!==id);
+  else if(LIB_BY_ID[id]){ if(!pr.added.includes(id)) pr.added.push(id); }
+  else { const c=pr.custom.find(x=>x.id===id); if(c) c.active=true; }
+  setSymPrefs(pr); afterSymChange(); toast('Added to your check-in'); }
+function addCustomSym(raw){
+  const name=String(raw||'').replace(/\s+/g,' ').trim();
+  const say=t=>{ symMsgText=t; renderManage(); const i=document.getElementById('symNewName'); if(i){ i.value=name; } };
+  if(!name) return say('Type a name for your symptom.');
+  if(name.length>40) return say('Please keep the name under 40 characters.');
+  const low=name.toLowerCase(), pr=symPrefs();
+  const known=[...METRICS.map(m=>m.name), ...SYMPTOM_LIBRARY.map(x=>x.name), ...pr.custom.map(c=>c.name)].find(n=>n.toLowerCase()===low);
+  if(known) return say('“'+known+'” already exists — add it from the list above.');
+  const cyc=[]; SIGN_GROUPS.forEach(g=>g[1].forEach(x=>cyc.push(x.label)));
+  const inCycle=cyc.find(n=>n.toLowerCase()===low);
+  if(inCycle) return say('“'+inCycle+'” is already tracked in Cycle → Cycle signs.');
+  const ids=new Set(pr.custom.map(c=>c.id)); let id;
+  do{ id='c_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7); }while(ids.has(id) || METRIC_BY_ID[id] || LIB_BY_ID[id]);
+  pr.custom.push({id, name, createdAt:new Date().toISOString(), active:true});
+  setSymPrefs(pr); afterSymChange(); toast('“'+name+'” added to your check-in');
+}
+/* ===== RECOVERED MODULE: My HRT Starting Point ===== */
+/* ============================================================
+   MY HRT STARTING POINT — DB.meta.baseline (one record, editable)
+   {version:1, hrtStartDate, retrospective, recordedAt, updatedAt, scores:{metricId:0–10}, goals:[ids ≤3], goalOther, notes}
+   Uses the same ids and 0–10 directions as Today. Missing = not recorded (never 0).
+   ============================================================ */
+function getBaseline(){
+  const b=DB.meta && DB.meta.baseline; if(!b || typeof b!=='object' || Array.isArray(b)) return null;
+  const scores={}; if(b.scores && typeof b.scores==='object' && !Array.isArray(b.scores)) Object.keys(b.scores).forEach(k=>{ const v=b.scores[k]; if(Number.isInteger(v) && v>=0 && v<=10) scores[k]=v; });
+  return { hrtStartDate:(typeof b.hrtStartDate==='string' && /^\d{4}-\d{2}-\d{2}$/.test(b.hrtStartDate)) ? b.hrtStartDate : null,
+           retrospective:!!b.retrospective, recordedAt:typeof b.recordedAt==='string'?b.recordedAt:null, updatedAt:typeof b.updatedAt==='string'?b.updatedAt:null,
+           scores, goals:Array.isArray(b.goals)?[...new Set(b.goals.filter(g=>typeof g==='string'))].slice(0,3):[],
+           goalOther:typeof b.goalOther==='string'?b.goalOther:'', notes:typeof b.notes==='string'?b.notes:'' };
+}
+function baselineHasContent(b){ return !!(b && (b.hrtStartDate || Object.keys(b.scores).length || b.goals.length || b.goalOther || b.notes)); }
+const BP_STEPS=['start','wellbeing','symptoms','goals','notes'];
+let bpI=0, bpD=null, bpDirty=false, bpMore=false, bpRetroTouched=false;
+function openBaseline(){
+  const b=getBaseline();
+  bpD = b ? JSON.parse(JSON.stringify(b)) : {hrtStartDate:null, retrospective:false, scores:{}, goals:[], goalOther:'', notes:''};
+  bpI=0; bpDirty=false; bpMore=false; bpRetroTouched=!!b; renderBpStep(); openSheet('bpSheet');
+}
+function bpScaleRow(def){
+  const row=mkEl('div','metric');
+  row.innerHTML='<div class="metric-top"><div class="metric-name"><span class="ico"></span><span class="nm"></span></div><div class="metric-val">–</div></div><div class="scale '+def.dir+'"></div><div class="anchors"><span></span><span></span></div>';
+  row.querySelector('.ico').textContent=def.ico; row.querySelector('.nm').textContent=def.name;
+  const an=row.querySelectorAll('.anchors span'); an[0].textContent='0 · '+def.anchor[0]; an[1].textContent=def.anchor[1]+' · 10';
+  const val=row.querySelector('.metric-val'), sc=row.querySelector('.scale');
+  const paint=()=>{ const v=bpD.scores[def.id]; [...sc.children].forEach((b,i)=>b.classList.toggle('sel', v!=null && i===v)); val.textContent=v==null?'–':v; val.classList.toggle('set', v!=null); };
+  for(let i=0;i<=10;i++){ const b=mkEl('button','',String(i)); b.setAttribute('aria-label',def.name+' before HRT '+i);
+    b.onclick=()=>{ if(bpD.scores[def.id]===i) delete bpD.scores[def.id]; else bpD.scores[def.id]=i; bpDirty=true; paint(); }; sc.appendChild(b); }
+  paint(); return row;
+}
+function renderBpStep(){
+  const step=BP_STEPS[bpI], box=document.getElementById('bpStep'); box.innerHTML='';
+  document.getElementById('bpDots').innerHTML=BP_STEPS.map((_,i)=>'<i class="'+(i===bpI?'on':'')+'"></i>').join('');
+  const retroNote = bpD.retrospective ? ' These are your retrospective estimates.' : '';
+  if(step==='start'){
+    box.appendChild(mkEl('p','ev-hint','Remember how you felt before starting HRT? Record your starting point so you can see how far you’ve come.'));
+    box.appendChild(mkEl('p','bp-sub','Every question is optional — skip anything you like and change it later.'));
+    const f=mkEl('div','field'); const lb=mkEl('label','','When did you start HRT?'); lb.setAttribute('for','bpStart');
+    const inp=mkEl('input','date-input'); inp.type='date'; inp.id='bpStart'; inp.max=today(); inp.value=bpD.hrtStartDate||'';
+    inp.onchange=()=>{ bpD.hrtStartDate = inp.value && inp.value<=today() ? inp.value : null; if(!inp.value) inp.value=''; bpDirty=true;
+      if(!bpRetroTouched && bpD.hrtStartDate){ bpD.retrospective = daysBetween(bpD.hrtStartDate, today())>7; const c=document.getElementById('bpRetro'); if(c) c.checked=bpD.retrospective; } };
+    f.appendChild(lb); f.appendChild(inp); box.appendChild(f);
+    const ck=mkEl('label','bp-check'); const cb=mkEl('input'); cb.type='checkbox'; cb.id='bpRetro'; cb.checked=!!bpD.retrospective;
+    cb.onchange=()=>{ bpD.retrospective=cb.checked; bpRetroTouched=true; bpDirty=true; };
+    ck.appendChild(cb); ck.appendChild(mkEl('span','','I have already been on HRT for a while — my answers are how I remember feeling before (retrospective estimates).'));
+    box.appendChild(ck);
+  } else if(step==='wellbeing'){
+    box.appendChild(mkEl('h3','','Before HRT — how did you feel?'));
+    box.appendChild(mkEl('p','bp-sub','Wellbeing: 0 is lowest, 10 is best. Tap a number again to clear it.'+retroNote));
+    CORE_WELL.forEach(m=>box.appendChild(bpScaleRow(metricDef(m.id))));
+  } else if(step==='symptoms'){
+    box.appendChild(mkEl('h3','','Before HRT — your symptoms'));
+    box.appendChild(mkEl('p','bp-sub','Severity: 0 is none, 10 is severe. Leave blank if you’re not sure.'+retroNote));
+    const vis=visibleSymptoms();
+    vis.forEach(id=>{ const d=metricDef(id); if(d) box.appendChild(bpScaleRow(d)); });
+    const rest=allSymptomIds().filter(id=>!vis.includes(id));
+    if(rest.length){
+      const extraBox=mkEl('div'); rest.forEach(id=>{ const d=metricDef(id); if(d && (bpMore || bpD.scores[id]!=null)) extraBox.appendChild(bpScaleRow(d)); });
+      box.appendChild(extraBox);
+      if(!bpMore){ const more=mkEl('button','btn btn-ghost btn-full bp-more','Show more symptoms ('+rest.length+')'); more.onclick=()=>{ bpMore=true; renderBpStep(); }; box.appendChild(more); }
+    }
+  } else if(step==='goals'){
+    box.appendChild(mkEl('h3','','What did you most hope HRT would improve?'));
+    box.appendChild(mkEl('p','bp-sub','Choose up to three. We’ll show how each one changes over time.'));
+    const opts=[...new Set([...CORE_WELL.map(m=>m.id), ...visibleSymptoms(), ...Object.keys(bpD.scores), ...bpD.goals])].filter(id=>metricDef(id));
+    const wrap=mkEl('div','chips bp-goals'); const cnt=mkEl('div','bp-count');
+    const paint=()=>{ [...wrap.children].forEach(b=>{ const on=bpD.goals.includes(b.dataset.id); b.classList.toggle('sel',on); b.setAttribute('aria-pressed',on?'true':'false'); b.disabled=!on && bpD.goals.length>=3; }); cnt.textContent=bpD.goals.length+' of 3 chosen'; };
+    opts.forEach(id=>{ const b=mkEl('button','chip',metricDef(id).name); b.dataset.id=id;
+      b.onclick=()=>{ if(bpD.goals.includes(id)) bpD.goals=bpD.goals.filter(x=>x!==id); else if(bpD.goals.length<3) bpD.goals.push(id); bpDirty=true; paint(); }; wrap.appendChild(b); });
+    box.appendChild(wrap); box.appendChild(cnt); paint();
+    const f=mkEl('div','field'); const lb=mkEl('label','','Something else (optional)'); lb.setAttribute('for','bpOther');
+    const inp=mkEl('input','date-input'); inp.id='bpOther'; inp.maxLength=80; inp.value=bpD.goalOther||''; inp.placeholder='e.g. Feeling like myself again';
+    inp.oninput=()=>{ bpD.goalOther=inp.value; bpDirty=true; }; f.appendChild(lb); f.appendChild(inp); box.appendChild(f);
+  } else {
+    box.appendChild(mkEl('h3','','Life before treatment'));
+    box.appendChild(mkEl('p','bp-sub','Optional — anything you’d like to remember about how things were.'));
+    const ta=mkEl('textarea'); ta.id='bpNotes'; ta.rows=6; ta.style.fontSize='1rem'; ta.placeholder='How were your days, sleep, work and relationships?'; ta.value=bpD.notes||'';
+    ta.oninput=()=>{ bpD.notes=ta.value; bpDirty=true; }; box.appendChild(ta);
+  }
+  document.getElementById('bpBack').hidden = bpI===0;
+  document.getElementById('bpNext').textContent = bpI===BP_STEPS.length-1 ? 'Save my starting point' : 'Next';
+  document.getElementById('bpSkip').hidden = bpI===BP_STEPS.length-1;
+}
+function bpGo(delta){ bpI=Math.max(0,Math.min(BP_STEPS.length-1,bpI+delta)); renderBpStep(); document.getElementById('bpSheet').scrollTop=0; }
+function saveBaseline(){
+  const nowIso=new Date().toISOString(), prev=getBaseline();
+  const b={version:1, hrtStartDate:bpD.hrtStartDate||null, retrospective:!!bpD.retrospective,
+           recordedAt:(prev && prev.recordedAt) ? prev.recordedAt : nowIso, updatedAt:nowIso,
+           scores:Object.assign({}, bpD.scores), goals:bpD.goals.slice(0,3), goalOther:(bpD.goalOther||'').trim(), notes:(bpD.notes||'').trim()};
+  const before=DB.meta.baseline;
+  DB.meta.baseline=b;
+  try{ save(); }catch(e){ DB.meta.baseline=before; toast('Could not save — please try again'); return; }
+  bpDirty=false; closeSheet('bpSheet'); renderBaselineCard(); toast('Starting point saved');
+}
+/* ---- comparisons: baseline vs AVERAGE of recorded days in a period; only ids with both values ---- */
+function bpPeriods(b){
+  const t=today(), out=[{key:'recent', label:'Last 2 weeks', short:'last 2 weeks', s:addDays(t,-13), e:t, min:3}];
+  if(b.hrtStartDate){
+    [[14,'2 weeks'],[30,'1 month'],[91,'3 months'],[182,'6 months'],[365,'12 months']].forEach(([D,l])=>{
+      const s0=addDays(b.hrtStartDate,D-7), e0=addDays(b.hrtStartDate,D+7);
+      if(s0<=t) out.push({key:'m'+D, label:'~'+l+' in', short:'around '+l+' after starting', s:s0, e:e0>t?t:e0, min:2});
+    });
+  }
+  return out;
+}
+function bpCompare(b, per){
+  const rows=[];
+  Object.keys(b.scores).forEach(id=>{
+    const def=metricDef(id); if(!def) return;
+    const vals=valuesInRange(id,per.s,per.e).map(x=>x.v).filter(v=>typeof v==='number');
+    if(vals.length<per.min) return;
+    const now=avg(vals), before=b.scores[id], diff=now-before;
+    const dirWord = Math.abs(diff)<0.5 ? 'similar' : (def.dir==='pos' ? (diff>0?'higher':'lower') : (diff<0?'less severe':'more severe'));
+    const good = Math.abs(diff)>=0.5 && (def.dir==='pos' ? diff>0 : diff<0);
+    const bad  = Math.abs(diff)>=0.5 && !good;
+    rows.push({id, def, before, now, n:vals.length, diff, dirWord, cls: good?'up':(bad?'down':'')});
+  });
+  return rows;
+}
+function bpOverall(rows, dir){ const r=rows.filter(x=>x.def.dir===dir); if(!r.length) return null; return {n:r.length, before:avg(r.map(x=>x.before)), now:avg(r.map(x=>x.now))}; }
+let bpPer='recent';
+function renderBaselineCard(){
+  const card=document.getElementById('bpCard'); if(!card) return;
+  const b=getBaseline(); card.innerHTML='';
+  if(!baselineHasContent(b)){
+    card.classList.add('bp-card-empty');
+    card.appendChild(mkEl('div','card-h')).appendChild(mkEl('h3','','My HRT Starting Point'));
+    card.appendChild(mkEl('p','ev-hint','Remember how you felt before starting HRT? Record your starting point so you can see how far you’ve come.'));
+    const go=mkEl('button','btn btn-primary btn-full','Record my starting point'); go.id='bpOpen'; go.onclick=openBaseline; card.appendChild(go);
+    return;
+  }
+  card.classList.remove('bp-card-empty');
+  const h=mkEl('div','card-h'); h.appendChild(mkEl('h3','','My HRT Starting Point'));
+  const ed=mkEl('button','btn-ghost small','Edit'); ed.id='bpEdit'; ed.onclick=openBaseline; h.appendChild(ed); card.appendChild(h);
+  card.appendChild(mkEl('div','bp-meta', b.hrtStartDate ? ('Started HRT '+formatLong(b.hrtStartDate)+' · '+Math.max(0,daysBetween(b.hrtStartDate,today()))+' days ago') : 'HRT start date not set yet'));
+  if(b.retrospective) card.appendChild(mkEl('span','bp-pill','Before-HRT scores are retrospective estimates'));
+  const pers=bpPeriods(b).map(p=>({p, rows:bpCompare(b,p)})).filter(x=>x.rows.length);
+  if(!pers.find(x=>x.p.key===bpPer)) bpPer = pers.length ? pers[0].p.key : 'recent';
+  const cur=pers.find(x=>x.p.key===bpPer);
+  const rowFor=id=>cur ? cur.rows.find(r=>r.id===id) : null;
+  if(b.goals.length || b.goalOther){
+    card.appendChild(mkEl('div','group-label','What I hoped to improve'));
+    b.goals.forEach(id=>{ const d=metricDef(id); if(!d) return; const r=rowFor(id);
+      const g=mkEl('div','bp-goal'); g.appendChild(mkEl('b','',d.name));
+      g.appendChild(mkEl('span','', r ? ('Before '+r.before+' → now '+r.now.toFixed(1)+' · '+r.dirWord) : (b.scores[id]==null?'No before-HRT score':'Not enough recent check-ins yet')));
+      card.appendChild(g); });
+    if(b.goalOther){ const g=mkEl('div','bp-goal'); g.appendChild(mkEl('b','',b.goalOther)); g.appendChild(mkEl('span','','Your own goal')); card.appendChild(g); }
+  }
+  if(!pers.length){
+    card.appendChild(mkEl('p','bp-foot', Object.keys(b.scores).length ? 'Comparisons appear once you have at least 3 check-ins in the last 2 weeks for something you scored before HRT.' : 'Add before-HRT scores (Edit) to compare them with your check-ins.'));
+  } else {
+    const seg=mkEl('div','bp-pers'); seg.setAttribute('role','group'); seg.setAttribute('aria-label','Compare with');
+    pers.forEach(x=>{ const bt=mkEl('button',x.p.key===bpPer?'sel':'',x.p.label); bt.setAttribute('aria-pressed',x.p.key===bpPer?'true':'false'); bt.onclick=()=>{ bpPer=x.p.key; renderBaselineCard(); }; seg.appendChild(bt); });
+    card.appendChild(seg);
+    const w=bpOverall(cur.rows,'pos'), sy=bpOverall(cur.rows,'neg'); const sum=mkEl('div','bp-sum');
+    const cell=(lbl,o)=>{ const c=mkEl('div'); c.appendChild(mkEl('small','',lbl)); c.appendChild(mkEl('b','', o ? (o.before.toFixed(1)+' → '+o.now.toFixed(1)) : '—')); c.appendChild(mkEl('small','', o ? ('avg of '+o.n+' score'+(o.n===1?'':'s')) : 'no matching data')); return c; };
+    sum.appendChild(cell('Wellbeing',w)); sum.appendChild(cell('Symptom severity',sy)); card.appendChild(sum);
+    const list=mkEl('div'); list.style.marginTop='8px';
+    cur.rows.forEach(r=>{ const row=mkEl('div','bp-row'); const n=mkEl('div','nm',r.def.name); n.appendChild(mkEl('small','', r.def.dir==='pos'?'wellbeing · higher is better':'severity · lower is better')); row.appendChild(n);
+      const v=mkEl('div','vals'); v.appendChild(document.createTextNode('Before '+r.before+' → '+r.now.toFixed(1))); v.appendChild(document.createElement('br')); v.appendChild(mkEl('span','bp-tag '+r.cls, r.dirWord+' · '+r.n+' day'+(r.n===1?'':'s'))); row.appendChild(v); list.appendChild(row); });
+    card.appendChild(list);
+    card.appendChild(mkEl('p','bp-foot','“Now” is the average of the days you recorded '+cur.p.short+' ('+fmtShort(cur.p.s)+' – '+fmtShort(cur.p.e)+'). Only things you scored both before and since are compared; blanks are never counted as 0. Changes can have many causes — this shows what you recorded, not why it changed.'));
+  }
+  if(b.notes){ const dt=mkEl('details','edu-topic'); dt.appendChild(mkEl('summary','','My notes about life before treatment')); const pn=mkEl('p','',b.notes); pn.style.whiteSpace='pre-wrap'; dt.appendChild(pn); card.appendChild(dt); }
+  const sf=mkEl('div','safety'); sf.appendChild(mkEl('b','','Please note: ')); sf.appendChild(document.createTextNode(SAFETY_NOTE)); card.appendChild(sf);
+}
+function bpReportText(){
+  const b=getBaseline(); if(!baselineHasContent(b)) return '';
+  const L=[]; L.push('MY HRT STARTING POINT');
+  L.push('  HRT started  : '+(b.hrtStartDate?fmtShort(b.hrtStartDate):'—')+(b.retrospective?'  (before-HRT scores are retrospective estimates)':''));
+  const goals=b.goals.map(id=>metricDef(id)).filter(Boolean).map(d=>d.name); if(b.goalOther) goals.push(b.goalOther);
+  L.push('  Hoped to improve: '+(goals.length?goals.join(', '):'—'));
+  const pers=bpPeriods(b).map(p=>({p, rows:bpCompare(b,p)})).filter(x=>x.rows.length);
+  if(!pers.length){ L.push('  Comparison   : not enough matching check-ins yet'); }
+  else {
+    const first=pers[0];
+    L.push('  Before HRT → '+first.p.short+' (avg of recorded days):');
+    first.rows.forEach(r=>L.push('    '+(r.def.name+' ').padEnd(22,'.')+' '+r.before+' → '+r.now.toFixed(1)+'  '+r.dirWord+' ('+r.n+'d)'));
+    pers.slice(1).forEach(x=>{ const w=bpOverall(x.rows,'pos'), sy=bpOverall(x.rows,'neg');
+      L.push('  '+x.p.short+': '+[w?('wellbeing '+w.before.toFixed(1)+' → '+w.now.toFixed(1)):null, sy?('symptom severity '+sy.before.toFixed(1)+' → '+sy.now.toFixed(1)):null].filter(Boolean).join(' · ')); });
+  }
+  if(b.notes) L.push('  Notes: '+b.notes.replace(/\s+/g,' ').slice(0,300));
+  L.push('  Recorded scores only; changes can have many causes.');
+  return '\n'+L.join('\n')+'\n';
+}
+function extraSymReport(s,e){
+  const lines=allSymptomIds().filter(id=>!METRIC_BY_ID[id]).map(id=>{ const vals=valuesInRange(id,s,e).map(x=>x.v); if(!vals.length) return null;
+    const d=metricDef(id); return d ? ('  '+(d.name+' ').padEnd(19,'.')+' '+avg(vals).toFixed(1)+'   (lower better)') : null; }).filter(Boolean);
+  return lines.length ? '\n'+lines.join('\n') : '';
+}
+function initStartingPoint(){
+  document.getElementById('manageSymBtn').onclick=()=>{ renderManage(); openSheet('symSheet'); };
+  document.getElementById('symSheetClose').onclick=()=>closeSheet('symSheet');
+  document.getElementById('bpNext').onclick=()=>{ if(bpI===BP_STEPS.length-1) saveBaseline(); else bpGo(1); };
+  document.getElementById('bpBack').onclick=()=>bpGo(-1);
+  document.getElementById('bpSkip').onclick=()=>bpGo(1);
+  document.getElementById('bpSheetClose').onclick=()=>{ if(!bpDirty || confirm('Close without saving your starting point?')){ bpDirty=false; closeSheet('bpSheet'); } };
+}
+/* ===== RECOVERED MODULE: My Reflection Space (stored in DB.reflections) ===== */
+/* ============================================================
+   MY REFLECTION SPACE — stored separately from the HRT records (DB / KEY are never touched)
+   Storage: localStorage['hrt_compass_v2_reflections_v1'] = {version:1, entries:[...]}
+   Entry:   {id, createdAt (ISO), date (YYYY-MM-DD, local — same key as DB.days for future comparisons),
+             stress (0–10 | null), text, influences:[keys], helped, editedAt (ISO | null)}
+   ============================================================ */
+const RKEY = 'hrt_compass_v2_reflections_v1';
+const RDRAFT = 'hrt_compass_v2_reflection_draft';
+const RF_INF = {work:'Work', relationships:'Relationships', sleep:'Sleep', hrt:'HRT changes', physical:'Physical symptoms', positive:'Something positive', other:'Other'};
+function normReflection(o){
+  if(!o || typeof o!=='object' || Array.isArray(o)) return null;
+  if(typeof o.id!=='string' || !o.id || o.id.length>100) return null;
+  if(typeof o.createdAt!=='string' || isNaN(new Date(o.createdAt))) return null;
+  let st=o.stress;
+  if(st===undefined || st===null || st==='') st=null;
+  else { st=Number(st); if(!Number.isInteger(st) || st<0 || st>10) return null; }
+  const str=v=> typeof v==='string' ? v : (v==null ? '' : null);
+  const text=str(o.text), helped=str(o.helped);
+  if(text===null || helped===null) return null;
+  let inf = o.influences==null ? [] : o.influences;
+  if(!Array.isArray(inf)) return null;
+  inf=[...new Set(inf.filter(k=>typeof k==='string' && RF_INF[k]))];
+  const date=(typeof o.date==='string' && /^\d{4}-\d{2}-\d{2}$/.test(o.date)) ? o.date : iso(new Date(o.createdAt));
+  const editedAt=(typeof o.editedAt==='string' && !isNaN(new Date(o.editedAt))) ? o.editedAt : null;
+  return {id:o.id, createdAt:o.createdAt, date, stress:st, text, influences:inf, helped, editedAt};
+}
+function loadReflections(){
+  const list = Array.isArray(DB.reflections) ? DB.reflections : [];
+  return list.map(normReflection).filter(Boolean);
+}
+let RF = [];
+function saveReflections(list){
+  try{ DB.reflections = list.map(x=>({id:x.id,createdAt:x.createdAt,date:x.date,stress:x.stress,text:x.text,influences:[...x.influences],helped:x.helped,editedAt:x.editedAt})); save(); return true; }catch(e){ return false; }
+}
+function rfWhen(isoStr){
+  try{ return new Date(isoStr).toLocaleString(undefined,{weekday:'short',day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); }catch(e){ return isoStr; }
+}
+function rfNewId(){ return 'r_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8); }
+
+let rfStress=null, rfInf=new Set(), rfEditId=null, rfSaving=false, rfLastSig='', rfLastAt=0, rfOpenId=null;
+function rfFormState(){
+  return {stress:rfStress, text:document.getElementById('rfText').value, influences:[...rfInf],
+          helped:document.getElementById('rfHelped').value, editId:rfEditId};
+}
+function rfHasContent(st){ st=st||rfFormState(); return st.stress!=null || st.text.trim()!=='' || st.helped.trim()!=='' || st.influences.length>0; }
+function rfPaintStress(){
+  const v=document.getElementById('rfStressVal');
+  v.innerHTML = rfStress==null ? 'Not answered' : rfStress+' <small>/ 10</small>';
+  v.classList.toggle('set', rfStress!=null);
+  [...document.getElementById('rfStressScale').children].forEach((b,i)=>{ b.classList.toggle('sel', i===rfStress); b.setAttribute('aria-pressed', i===rfStress?'true':'false'); });
+  document.getElementById('rfStressClear').hidden = rfStress==null;
+}
+function rfPaintInf(){
+  [...document.getElementById('rfInfluences').children].forEach(b=>{ const on=rfInf.has(b.dataset.inf); b.classList.toggle('sel', on); b.setAttribute('aria-pressed', on?'true':'false'); });
+}
+function rfMsg(text, kind){ const m=document.getElementById('rfMsg'); m.textContent=text||''; m.className='rf-msg'+(kind?' '+kind:''); }
+function rfSaveDraft(){
+  const st=rfFormState();
+  try{
+    if(rfHasContent(st)) localStorage.setItem(RDRAFT, JSON.stringify(st)); else localStorage.removeItem(RDRAFT);
+  }catch(e){}
+  document.getElementById('rfDraftNote').hidden = !rfHasContent(st);
+}
+function rfClearDraft(){ try{ localStorage.removeItem(RDRAFT); }catch(e){} document.getElementById('rfDraftNote').hidden=true; }
+function rfFill(st){
+  rfStress = (st.stress==null || isNaN(Number(st.stress))) ? null : Math.max(0, Math.min(10, Math.round(Number(st.stress))));
+  rfInf = new Set((st.influences||[]).filter(k=>RF_INF[k]));
+  document.getElementById('rfText').value = st.text||'';
+  document.getElementById('rfHelped').value = st.helped||'';
+  rfPaintStress(); rfPaintInf();
+}
+function rfSetEditMode(entry){
+  rfEditId = entry ? entry.id : null;
+  document.getElementById('rfEditBanner').hidden = !entry;
+  if(entry) document.getElementById('rfEditWhen').textContent = rfWhen(entry.createdAt);
+  document.getElementById('saveReflection').textContent = entry ? 'Save changes' : 'Save reflection';
+}
+function rfResetForm(){ rfFill({stress:null, text:'', influences:[], helped:''}); rfSetEditMode(null); rfClearDraft(); }
+
+function saveReflection(){
+  if(rfSaving) return;                                    // ignore repeated taps while saving
+  const st=rfFormState();
+  if(!rfHasContent(st)){ rfMsg('Add at least one answer — a stress score, a few words, or what affected you.', 'warn'); return; }
+  const sig=JSON.stringify([st.stress, st.text.trim(), [...st.influences].sort(), st.helped.trim(), st.editId]);
+  if(!st.editId && sig===rfLastSig && Date.now()-rfLastAt<15000){ rfMsg('This reflection is already saved.', 'ok'); return; }
+  rfSaving=true;
+  const btn=document.getElementById('saveReflection'); btn.disabled=true;
+  const next = RF.map(x=>Object.assign({}, x, {influences:[...x.influences]}));   // work on a copy; commit only after a verified write
+  const nowIso=new Date().toISOString();
+  let savedEntry;
+  if(st.editId){
+    const e=next.find(x=>x.id===st.editId);
+    if(!e){ rfSaving=false; btn.disabled=false; rfMsg('That reflection no longer exists, so nothing was changed.', 'warn'); rfSetEditMode(null); return; }
+    Object.assign(e, {stress:st.stress, text:st.text.trim(), influences:[...st.influences], helped:st.helped.trim(), editedAt:nowIso});   // createdAt/date preserved
+    savedEntry=e;
+  } else {
+    savedEntry={id:rfNewId(), createdAt:nowIso, date:today(), stress:st.stress, text:st.text.trim(), influences:[...st.influences], helped:st.helped.trim(), editedAt:null};
+    next.push(savedEntry);
+  }
+  if(!saveReflections(next)){
+    rfSaving=false; btn.disabled=false;
+    rfMsg('Your reflection could not be saved on this device. Your words are still here — please try again.', 'warn');
+    return;
+  }
+  RF=next; rfLastSig=sig; rfLastAt=Date.now();
+  const wasEdit=!!st.editId;
+  rfResetForm();                                          // clear only after a successful save
+  rfOpenId=savedEntry.id;
+  renderReflectionList();
+  rfMsg(wasEdit ? 'Changes saved.' : 'Saved. Thank you for taking a moment for yourself.', 'ok');
+  toast(wasEdit ? 'Reflection updated' : 'Reflection saved');
+  btn.textContent='✓ Saved'; btn.classList.add('saved');
+  setTimeout(()=>{ btn.classList.remove('saved'); btn.textContent= rfEditId ? 'Save changes' : 'Save reflection'; btn.disabled=false; rfSaving=false; }, 900);
+}
+function rfEdit(id){
+  const e=RF.find(x=>x.id===id); if(!e) return;
+  if(rfHasContent() && rfEditId!==id && !confirm('Replace what you are writing now with this reflection to edit it?')) return;
+  rfFill(e); rfSetEditMode(e); rfSaveDraft(); rfMsg('');
+  document.getElementById('reflectCard').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function rfDelete(id){
+  const e=RF.find(x=>x.id===id); if(!e) return;
+  if(!confirm('Delete this reflection from '+rfWhen(e.createdAt)+'? This cannot be undone.')) return;
+  const next=RF.filter(x=>x.id!==id);
+  if(!saveReflections(next)){ toast('Could not delete — please try again'); return; }
+  RF=next; if(rfEditId===id) rfResetForm();
+  renderReflectionList(); toast('Reflection deleted');
+}
+function rfAddText(parent, tag, cls, text){ const el=document.createElement(tag); if(cls) el.className=cls; el.textContent=text; parent.appendChild(el); return el; }
+function renderReflectionList(){
+  const box=document.getElementById('reflectList'); if(!box) return;
+  document.getElementById('rfCount').textContent = RF.length ? String(RF.length) : '';
+  box.innerHTML='';
+  if(!RF.length){ rfAddText(box,'div','empty','Your reflection journey begins here. Every entry is a chance to understand yourself a little better.'); return; }
+  [...RF].sort((a,b)=>b.createdAt.localeCompare(a.createdAt)).forEach(e=>{
+    const item=document.createElement('div'); item.className='rf-item';
+    const head=document.createElement('button'); head.className='rf-item-head'; head.setAttribute('aria-expanded', rfOpenId===e.id?'true':'false');
+    const top=document.createElement('div'); top.className='rf-item-top';
+    rfAddText(top,'span','rf-when',rfWhen(e.createdAt));
+    if(e.stress!=null) rfAddText(top,'span','rf-badge','Stress '+e.stress+'/10');
+    head.appendChild(top);
+    if(e.influences.length){ const tg=document.createElement('div'); tg.className='rf-tags'; e.influences.forEach(k=>rfAddText(tg,'span','rf-tag',RF_INF[k])); head.appendChild(tg); }
+    const pv=(e.text||e.helped||'').replace(/\s+/g,' ').trim();
+    if(pv) rfAddText(head,'div','rf-preview', pv.length>120 ? pv.slice(0,120).trim()+'…' : pv);
+    head.onclick=()=>{ rfOpenId = rfOpenId===e.id ? null : e.id; renderReflectionList(); };
+    item.appendChild(head);
+    if(rfOpenId===e.id){
+      const full=document.createElement('div'); full.className='rf-full';
+      if(e.text){ rfAddText(full,'h4','','What was on my mind'); rfAddText(full,'p','',e.text); }
+      if(e.helped){ rfAddText(full,'h4','','What helped'); rfAddText(full,'p','',e.helped); }
+      if(!e.text && !e.helped){ rfAddText(full,'h4','','Reflection'); rfAddText(full,'p','', e.stress!=null ? 'Stress level recorded.' : 'Influences recorded.'); }
+      if(e.editedAt) rfAddText(full,'div','rf-edited','Last edited '+rfWhen(e.editedAt));
+      const act=document.createElement('div'); act.className='rf-actions';
+      const eb=rfAddText(act,'button','btn btn-ghost','Edit'); eb.onclick=()=>rfEdit(e.id);
+      const db=rfAddText(act,'button','btn btn-ghost rf-del','Delete'); db.onclick=()=>rfDelete(e.id);
+      full.appendChild(act); item.appendChild(full);
+    }
+    box.appendChild(item);
+  });
+}
+function initReflections(){
+  RF=loadReflections();
+  const sc=document.getElementById('rfStressScale');
+  for(let i=0;i<=10;i++){ const b=document.createElement('button'); b.textContent=i; b.setAttribute('aria-label','Stress '+i);
+    b.onclick=()=>{ rfStress = rfStress===i ? null : i; rfPaintStress(); rfSaveDraft(); }; sc.appendChild(b); }
+  const ic=document.getElementById('rfInfluences');
+  Object.keys(RF_INF).forEach(k=>{ const b=document.createElement('button'); b.className='chip'; b.dataset.inf=k; b.textContent=RF_INF[k];
+    b.onclick=()=>{ rfInf.has(k) ? rfInf.delete(k) : rfInf.add(k); rfPaintInf(); rfSaveDraft(); }; ic.appendChild(b); });
+  document.getElementById('rfStressClear').onclick=()=>{ rfStress=null; rfPaintStress(); rfSaveDraft(); };
+  ['rfText','rfHelped'].forEach(id=>document.getElementById(id).addEventListener('input', ()=>{ rfSaveDraft(); if(document.getElementById('rfMsg').classList.contains('warn')) rfMsg(''); }));
+  document.getElementById('saveReflection').onclick=saveReflection;
+  document.getElementById('rfCancelEdit').onclick=()=>{ if(!rfHasContent() || confirm('Stop editing? Changes you have not saved will be discarded.')){ rfResetForm(); rfMsg(''); } };
+  // Restore an unsaved draft (e.g. after the app was closed mid-reflection)
+  let d=null; try{ d=JSON.parse(localStorage.getItem(RDRAFT)); }catch(e){}
+  if(d && typeof d==='object'){
+    rfFill(d);
+    const ed = d.editId ? RF.find(x=>x.id===d.editId) : null;
+    rfSetEditMode(ed||null);
+    document.getElementById('rfDraftNote').hidden = !rfHasContent();
+  } else { rfPaintStress(); rfPaintInf(); }
+  renderReflectionList();
+  window.addEventListener('beforeunload', ev=>{ if(rfHasContent()){ rfSaveDraft(); ev.preventDefault(); ev.returnValue=''; } });
+}
+
 function renderMetricInputs(){
-  const pos=document.getElementById('posMetrics'); const neg=document.getElementById('negMetrics');
-  pos.innerHTML=''; neg.innerHTML='';
-  METRICS.forEach(m=> (m.dir==='pos'?pos:neg).appendChild(buildMetricRow(m)) );
+  const pos=document.getElementById('posMetrics'); pos.innerHTML='';
+  METRICS.filter(m=>m.dir==='pos').forEach(m=> pos.appendChild(buildMetricRow(m)) );
+  renderSymptomRows(true);   // Symptoms section is dynamic (Manage my symptoms)
 }
 function curDay(){ return DB.days[curDate] || {}; }
 function setMetric(id,v){
@@ -1264,7 +1984,9 @@ function renderToday(){
   tagEl.textContent = tag;
   document.getElementById('datePicker').value = curDate;
   // values
-  METRICS.forEach(m=>{ paintMetric(m.id); if(m.tags) paintTags(m.id); if(m.flag) paintFlag(m.flag.id); if(m.counter) paintCounter(m.counter.id); });
+  renderSymptomRows();
+  METRICS.forEach(m=>{ if(document.getElementById('scale-'+m.id)){ paintMetric(m.id); if(m.tags) paintTags(m.id); if(m.flag) paintFlag(m.flag.id); if(m.counter) paintCounter(m.counter.id); } });
+  document.querySelectorAll('#negMetrics [data-xid]').forEach(w=>paintExtra(w.dataset.xid));
   paintHrt();
   document.querySelectorAll('#dayBleedChips .chip').forEach(c=>c.classList.toggle('sel', (curDay().bleeding||'')===c.dataset.dbleed));
   document.querySelectorAll('#appetiteChips .chip').forEach(c=>c.classList.toggle('sel', (curDay().appetite||'')===c.dataset.appetite));
@@ -1380,7 +2102,7 @@ function startCandidate(){
   const ds=Object.keys(DB.days).filter(k=>hasData(DB.days[k])).sort();
   return ds[0] || curDate;
 }
-function hasData(d){ return d && (d.hrt || d.notes || d.migraine || d.woke24 || d.wokeCount!=null || d.appetite || d.gelSide || d.gelArea || (d.bleeding && d.bleeding!=='none') || (d.histamineTags&&d.histamineTags.length) || (d.meds && Object.keys(d.meds).some(k=>d.meds[k] && (d.meds[k].taken==='yes'||d.meds[k].taken==='no'))) || METRICS.some(m=>d[m.id]!=null)); }
+function hasData(d){ return d && (d.hrt || d.notes || d.migraine || d.woke24 || d.wokeCount!=null || d.appetite || d.gelSide || d.gelArea || (d.bleeding && d.bleeding!=='none') || (d.histamineTags&&d.histamineTags.length) || (d.meds && Object.keys(d.meds).some(k=>d.meds[k] && (d.meds[k].taken==='yes'||d.meds[k].taken==='no'))) || (d.sym && Object.keys(d.sym).some(k=>typeof d.sym[k]==='number')) || METRICS.some(m=>d[m.id]!=null)); }
 
 /* ============================================================
    CYCLE
@@ -2084,7 +2806,7 @@ Night waking   : avg ${avgWoke} times/night · woke 2–4am on ${woke24N} days
 MEDICATIONS
   Estradiol ..... ${DB.meta.dose||'Divigel 1 mg'} · taken ${taken}/${days.length} days
 ${medsTxt}
-
+${bpReportText()}
 HRT SCORECARD
 ${scText}
 
@@ -2312,6 +3034,7 @@ function confirmFullRestore(){
   const isObj=o=>o && typeof o==='object' && !Array.isArray(o);
   norm.days = isObj(norm.days)? norm.days : {};
   norm.periods = Array.isArray(norm.periods)? norm.periods : [];
+  norm.reflections = Array.isArray(norm.reflections)? norm.reflections : [];
   norm.weeks = isObj(norm.weeks)? norm.weeks : {};
   norm.events = Array.isArray(norm.events)? norm.events : [];
   norm.meta = isObj(norm.meta)? norm.meta : {};
@@ -2332,13 +3055,15 @@ function confirmFullRestore(){
    NAV + EVENTS
    ============================================================ */
 function go(screen){
+  const __leaving=document.querySelector('.screen.active');
+  if(__leaving && __leaving.id==='s-progress' && screen!=='progress' && typeof rfHasContent==='function' && rfHasContent()){ rfSaveDraft(); setTimeout(()=>toast('Your reflection isn\u2019t saved yet — it\u2019s kept for you on Progress'),50); }
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('s-'+screen).classList.add('active');
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.go===screen));
   window.scrollTo(0,0);
   if(screen==='cycle')renderCycle();
   if(screen==='week')renderWeek();
-  if(screen==='progress'){ renderProgress(); const ed=document.getElementById('evDate'); if(ed&&!ed.value) ed.value=today(); renderEventTimeline(); }
+  if(screen==='progress'){ renderBaselineCard(); renderProgress(); const ed=document.getElementById('evDate'); if(ed&&!ed.value) ed.value=today(); renderEventTimeline(); renderReflectionList(); }
   if(screen==='report')renderReport();
   if(screen==='today')renderToday();
 }
@@ -2369,6 +3094,7 @@ function bind(){
     if(y.appetite) d.appetite=y.appetite;
     if(y.meds) d.meds=JSON.parse(JSON.stringify(y.meds));
     if(y.histamineTags) d.histamineTags=[...y.histamineTags];
+    if(y.sym && typeof y.sym==='object') d.sym=JSON.parse(JSON.stringify(y.sym));
     renderToday(); toast('Copied yesterday — tweak as needed');
   };
   // cycle
@@ -2457,9 +3183,50 @@ function bind(){
   };
 }
 
+
+/* ===== Non-destructive migration from the Oct-28 V2 build (different storage key). Never deletes the old keys. ===== */
+function migrateFromOldKey(){
+  let old=null; try{ const raw=localStorage.getItem('hrt_compass_v2_data'); if(raw) old=JSON.parse(raw); }catch(e){}
+  let changed=false;
+  if(old && typeof old==='object' && !Array.isArray(old)){
+    if(old.days && typeof old.days==='object'){ for(const k in old.days){ if(!DB.days[k]){ DB.days[k]=old.days[k]; changed=true; } else { const o=old.days[k],c=DB.days[k]; if(o&&typeof o==='object') for(const f in o){ if(c[f]===undefined){ c[f]=o[f]; changed=true; } } } } }
+    if(Array.isArray(old.periods)) old.periods.forEach(p=>{ if(p&&p.start&&!DB.periods.some(x=>x.start===p.start)){ DB.periods.push(p); changed=true; } });
+    if(old.weeks && typeof old.weeks==='object'){ for(const k in old.weeks){ if(!DB.weeks[k]){ DB.weeks[k]=old.weeks[k]; changed=true; } } }
+    if(Array.isArray(old.events)) old.events.forEach(ev=>{ if(ev&&!DB.events.some(x=>x.date===ev.date&&x.text===ev.text)){ DB.events.push(ev); changed=true; } });
+    if(old.meta && typeof old.meta==='object'){
+      if(DB.meta.baseline===undefined && old.meta.baseline!==undefined){ DB.meta.baseline=old.meta.baseline; changed=true; }
+      if(DB.meta.symptomPrefs===undefined && old.meta.symptomPrefs!==undefined){ DB.meta.symptomPrefs=old.meta.symptomPrefs; changed=true; }
+      if(!DB.meta.startDate && old.meta.startDate){ DB.meta.startDate=old.meta.startDate; changed=true; }
+    }
+  }
+  try{ const rr=localStorage.getItem('hrt_compass_v2_reflections_v1'); if(rr){ const ro=JSON.parse(rr); const list=ro&&Array.isArray(ro.entries)?ro.entries:null;
+    if(list){ if(!Array.isArray(DB.reflections)) DB.reflections=[]; const have=new Set(DB.reflections.map(x=>x&&x.id)); list.forEach(e=>{ if(e&&e.id&&!have.has(e.id)){ DB.reflections.push(e); changed=true; } }); } } }catch(e){}
+  if(changed){ try{ save(); }catch(e){} }
+}
+
+migrateFromOldKey();
 renderMetricInputs();
 bind();
+initReflections();
+initStartingPoint();
 renderToday();
+
+function greetingFor(h){ return (h>=5 && h<12) ? 'Good morning' : (h>=12 && h<18) ? 'Good afternoon' : 'Good evening'; }
+(function welcomeScreen(){
+  const el=document.getElementById('welcome'); if(!el) return;
+  let shown=false; try{ shown = sessionStorage.getItem('hrt_compass_v2_welcome_shown')==='1'; }catch(e){}
+  if(shown) return;
+  document.getElementById('welcomeGreeting').textContent = greetingFor(new Date().getHours());
+  el.hidden=false; document.documentElement.style.overflow='hidden';
+  document.getElementById('welcomeStart').onclick=()=>{ el.hidden=true; document.documentElement.style.overflow='';
+    try{ sessionStorage.setItem('hrt_compass_v2_welcome_shown','1'); }catch(e){} go('today'); };
+})();
+(function dataNotice(){
+  let seen=false; try{ seen = localStorage.getItem('hrt_compass_v2_notice_ok')==='1'; }catch(e){}
+  const el=document.getElementById('dataNotice'); if(!el || seen) return; el.classList.add('show');
+  document.getElementById('dataNoticeX').onclick=()=>{ el.classList.remove('show'); try{ localStorage.setItem('hrt_compass_v2_notice_ok','1'); }catch(e){} };
+})();
+
 
 /* ---------- installable app: service worker + home-screen hint ---------- */
 if('serviceWorker' in navigator){
