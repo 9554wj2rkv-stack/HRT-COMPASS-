@@ -384,6 +384,14 @@
   .reader-scroll .copyright{font-weight:700;color:var(--ink);margin:4px 0 14px;}
   .reader-scroll .toconfirm{background:var(--accent-soft);color:var(--accent-deep);border-radius:6px;padding:1px 7px;font-weight:700;font-size:.95em;}
   .reader-scroll .foot{margin-top:26px;color:var(--ink-faint);font-size:.85rem;text-align:center;}
+  .reader-scroll .pp-intro{font-size:1.04rem;color:var(--ink);margin:0 0 20px;}
+  .reader-scroll .pp-fold{border:1px solid var(--line);border-radius:14px;margin:0 0 12px;background:var(--surface);overflow:hidden;}
+  .reader-scroll .pp-fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:15px 16px;font-weight:700;font-size:1.04rem;color:var(--accent-deep);}
+  .reader-scroll .pp-fold>summary::-webkit-details-marker{display:none;}
+  .reader-scroll .pp-fold>summary .pp-chev{flex:none;margin-left:auto;color:var(--ink-soft);font-size:.9rem;transition:transform .2s;}
+  .reader-scroll .pp-fold[open]>summary .pp-chev{transform:rotate(180deg);}
+  .reader-scroll .pp-fold .pp-body{padding:2px 16px 6px;}
+  .reader-scroll .pp-fold .pp-body h4{margin-top:6px;}
   .med{padding:11px 0;border-top:1px solid var(--line);}
   .med:first-child{border-top:none;padding-top:4px;}
   .med-top{display:flex;align-items:center;justify-content:space-between;gap:10px;}
@@ -1192,24 +1200,42 @@ function responsibleBlock(){
 }
 const LEGAL_SECTIONS={
   privacy:{ title:'Privacy Policy', html:()=>`
-    <h4>Your data stays with you</h4>
-    <p>Everything you enter in HRT Compass — your check-ins, symptoms, HRT and doses, cycle and period history, bleeding, sleep, weight, notes and settings — is saved <b>only on the device you are using</b>, inside the app itself.</p>
-    <h4>We never see it</h4>
-    <p>Your records are <b>never sent to us or to any server</b>. There is no account, no login, no email sign-up and no cloud copy. HRT Compass has <b>no advertising, no analytics and no tracking</b>. Your information is <b>never sold or shared</b>, and we cannot see or recover it.</p>
-    <h4>When the app loads</h4>
-    <p>HRT Compass is delivered to your device by its hosting provider, <b>GitHub Pages</b>, the first time you open it and whenever it updates. Like any website, the hosting provider can see basic technical details such as your device’s internet (IP) address, but <b>never your health information</b>. ${LEGAL.githubPrivacyUrl?`See <a href="${LEGAL.githubPrivacyUrl}" target="_blank" rel="noopener">GitHub’s privacy statement</a>.`:''}</p>
-    <p>The app’s fonts are included inside the app itself, so no other outside services are contacted. After it has loaded, HRT Compass works offline and your entries stay on your device.</p>
-    <h4>Your backups and control</h4>
-    <ul>
-      <li><b>Export</b> a full backup or a CSV copy of your data (Report → Data backup).</li>
-      <li><b>Import</b> a backup to restore it — your current data is safely backed up first.</li>
-      <li><b>Delete</b> everything from this device at any time (Report → Clear all data).</li>
-    </ul>
-    <h4>Please keep your own backups</h4>
-    <p>Because your data lives only in the app on this device, it can be lost if you clear your browser or website data, delete the app, change device, or if your device is damaged. <b>We cannot recover data for you and do not promise permanent storage</b> — so please keep your own exported backups.</p>
-    <h4>Who is responsible</h4>
-    ${responsibleBlock()}
-    <p>If you are in the EU/EEA, you may have rights under the GDPR. Because the app does not send your health data to us, we do not hold those records; any technical data handled by the providers above is covered by their own policies.</p>
+    <p class="pp-intro">HRT Compass is built so your health records stay with you. Here’s what that means, in plain terms.</p>
+
+    <h4>What HRT Compass stores</h4>
+    <p>Everything you enter — your check-ins, symptoms, HRT and doses, cycle and period history, sleep, weight and notes.</p>
+
+    <h4>Where your records are kept</h4>
+    <p>Only on the device you’re using, inside the app. There is no account, no login and no cloud copy.</p>
+
+    <h4>Are my health records shared?</h4>
+    <p>No. Your health records are <b>never sent to us, never sold and never shared</b>. HRT Compass has no ads, no analytics and no tracking.</p>
+
+    <h4>Backing up your records</h4>
+    <p>You can export a full backup, or a CSV copy, at any time from <b>Report → Data backup</b>, and import it later to restore. Because your records live only on this device, they’re removed if you delete the app or clear its data — so keeping your own backup is the safe way to protect them.</p>
+
+    <h4>Deleting your records</h4>
+    <p>You can delete everything from this device whenever you choose, from <b>Report → Clear all data</b>.</p>
+
+    <details class="pp-fold">
+      <summary>How your data is handled<span class="pp-chev">▾</span></summary>
+      <div class="pp-body">
+        <p>Like any website, HRT Compass is delivered to your device by a hosting provider (<b>GitHub Pages</b>) the first time you open it, and whenever it updates. The hosting provider can see basic technical details such as your device’s internet (IP) address — but <b>never your health information</b>.${LEGAL.githubPrivacyUrl?` You can read <a href="${LEGAL.githubPrivacyUrl}" target="_blank" rel="noopener">the hosting provider’s privacy statement</a>.`:''}</p>
+        <p>No other outside services are contacted. Once the app has loaded, it works offline and everything you enter stays on your device.</p>
+      </div>
+    </details>
+
+    <details class="pp-fold">
+      <summary>Your privacy rights &amp; support<span class="pp-chev">▾</span></summary>
+      <div class="pp-body">
+        <h4>Who is responsible</h4>
+        <p>HRT Compass is the product and brand name of this app.${LEGAL.country?` The operator of the app is based in ${esc(LEGAL.country)}.`:''}${LEGAL.operatorName?` It is operated by <b>${esc(LEGAL.operatorName)}</b>${LEGAL.cvr?` · CVR ${esc(LEGAL.cvr)}`:''}.`:''}</p>
+        <h4>Your rights in the EU/EEA</h4>
+        <p>If you are in the EU/EEA, you may have rights under the GDPR. Because the app does not send your health data to us, we do not hold those records; any technical data handled by the hosting provider is covered by its own policy.</p>
+        ${LEGAL.contactEmail?`<h4>Support &amp; contact</h4><p>For privacy questions or to exercise your data rights, contact <a href="mailto:${esc(LEGAL.contactEmail)}">${esc(LEGAL.contactEmail)}</a>.</p>`:''}
+      </div>
+    </details>
+
     <p class="foot">Last updated: ${esc(LEGAL.effectiveDate)}</p>
   `},
   terms:{ title:'Terms of Use', html:()=>`
@@ -1231,16 +1257,16 @@ const LEGAL_SECTIONS={
   `},
   medical:{ title:'Medical Information', html:()=>`
     <p>HRT Compass is a <b>personal tracking and educational tool</b> — it is here to help you notice and record how you feel over time.</p>
-    <p>It is <b>intended as a tracking tool, not a medical device</b>. It does not diagnose conditions, does not prescribe or recommend medication or doses, and is not a substitute for professional medical advice, diagnosis or treatment.</p>
+    <p>It is <b>intended only as a personal tracking and educational tool, and is not intended to be used as a medical device</b>. It does not diagnose conditions, does not prescribe or recommend medication or doses, and is not a substitute for professional medical advice, diagnosis or treatment.</p>
     <p>Any estimates — such as estimated ovulation, fertile windows or symptom patterns — are <b>approximate</b>, are based only on the information you enter, and are always labelled as estimates. They should <b>not</b> be used for contraception, or to plan or avoid pregnancy.</p>
     <p>Please talk to your doctor or another <b>qualified healthcare professional</b> about your symptoms and any changes to your HRT or medication. For anything urgent, contact your doctor or local emergency services.</p>
   `},
   ownership:{ title:'Ownership & Copyright', html:()=>`
     <p class="copyright">© 2026 HRT Compass. All rights reserved.</p>
-    <p><b>HRT Compass</b> is the public-facing product and brand name of this app.</p>
-    <p>The app — its name, design, look and the code behind it, together with the HRT Compass brand — is owned by the app’s operator${LEGAL.operatorName?' (<b>'+esc(LEGAL.operatorName)+'</b>, the rights holder)':' (the rights holder)'}, and is protected by copyright and other intellectual-property laws.</p>
+    <p>The original HRT Compass software, design and content are protected by applicable intellectual-property laws, subject to third-party rights and licences${LEGAL.operatorName?', and are owned by <b>'+esc(LEGAL.operatorName)+'</b>':''}.</p>
     <p><b>Your records are yours.</b> Owning the app gives us no ownership of, and no access to, the information you keep on your device.</p>
-    <p><b>Fonts.</b> HRT Compass includes the <b>Fraunces</b> and <b>DM Sans</b> typefaces, used under the <b>SIL Open Font License, Version 1.1</b> and owned by their creators.</p>
+    <h4>Third-party licences</h4>
+    <p>HRT Compass uses the <b>Fraunces</b> and <b>DM Sans</b> typefaces, created by their respective authors and used under the <b>SIL Open Font License, Version 1.1</b>.</p>
   `}
 };
 function openLegal(key){
