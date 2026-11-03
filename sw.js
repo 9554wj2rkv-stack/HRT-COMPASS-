@@ -1,5 +1,5 @@
 /* Bloom HRT Tracker — offline cache. Bump CACHE to force an update. */
-const CACHE = 'bloom-hrt-v30';
+const CACHE = 'bloom-hrt-v32';
 const ASSETS = [
   './',
   './index.html',
