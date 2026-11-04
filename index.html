@@ -417,6 +417,19 @@
   .cyc-est .conf.cal{background:var(--surface-2);color:var(--ink-soft);}
   .cyc-est .conf.sup{background:var(--sage-soft);color:var(--good-text);}
   .cyc-insight{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);font-size:.8rem;line-height:1.45;color:var(--ink-soft);font-style:italic;}
+  .cyc-phase{flex:1;min-width:0;border-left:1px solid var(--line);padding-left:14px;}
+  .phase-seg{flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .phase-seg button{flex:0 0 auto;padding:6px 11px;font-size:.78rem;border-radius:999px;}
+  .phase-out{margin-top:9px;font-size:.84rem;color:var(--ink);line-height:1.4;}
+  .ph-note{color:var(--ink-faint);font-size:.72rem;font-weight:400;}
+  .meno-block{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);}
+  .meno-note{margin-top:8px;color:var(--ink-faint);font-size:.75rem;line-height:1.4;}
+  .card > .cyc-est{border-left:none;padding-left:0;}
+  .chg{padding:10px 12px;border-radius:12px;margin-bottom:8px;font-size:.9rem;line-height:1.45;font-weight:600;}
+  .chg.within{background:var(--sage-soft);color:var(--good-text);}
+  .chg.early,.chg.late{background:var(--accent-soft);color:var(--accent-deep);}
+  .chg-foot{color:var(--ink-faint);font-size:.75rem;line-height:1.4;margin-top:2px;}
+  .bleed-safety{margin-top:14px;padding:11px 13px;border-radius:12px;background:var(--accent-soft);color:var(--accent-deep);font-size:.84rem;line-height:1.5;font-weight:600;}
 
   .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
   .cal-title{font-family:'Fraunces';font-weight:600;font-size:1.12rem;}
@@ -867,6 +880,8 @@
           <button class="chip" data-dbleed="medium">Medium</button>
           <button class="chip" data-dbleed="heavy">Heavy</button>
         </div>
+        <div class="group-label">Type <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-faint);">· optional, your own note</span></div>
+        <div class="chips wrap" id="todayBleedType" style="margin-top:8px;"></div>
       </div>
 
       <div class="card">
@@ -883,6 +898,7 @@
     <section class="screen" id="s-cycle">
       <div class="screen-title"><h2>Cycle</h2><p>Periods and bleeding over time. Cycle day updates on its own.</p></div>
 
+      <!-- 1. Cycle Stage: cycle day · menopause stage (self-reported) · estimated phase -->
       <div class="card">
         <div class="cyc-summary">
           <div class="cyc-day">
@@ -890,11 +906,45 @@
             <div class="cyc-big" id="cycleDayBig">—</div>
             <div class="cyc-sub" id="cycleDaySub">No period logged yet</div>
           </div>
-          <div class="cyc-est" id="cycEst"></div>
+          <div class="cyc-phase">
+            <div class="group-label" style="margin-top:0;">Cycle phase <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-faint);">· estimate</span></div>
+            <div class="seg phase-seg" id="phaseSeg">
+              <button data-phase="auto">Auto</button>
+              <button data-phase="menstrual">Menstrual</button>
+              <button data-phase="follicular">Follicular</button>
+              <button data-phase="ovulation">Ovulation</button>
+              <button data-phase="luteal">Luteal</button>
+            </div>
+            <div class="phase-out" id="phaseOut"></div>
+          </div>
         </div>
+        <div class="meno-block">
+          <div class="group-label">Menopause stage <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-faint);">· optional, self-reported</span></div>
+          <div class="chips wrap" id="menoStageChips">
+            <button class="chip" data-meno="regular">Regular cycles</button>
+            <button class="chip" data-meno="perimenopause">Perimenopause</button>
+            <button class="chip" data-meno="postmenopause">Postmenopause</button>
+            <button class="chip" data-meno="unsure">Unsure</button>
+            <button class="chip" data-meno="other">No periods (other reason)</button>
+          </div>
+          <div class="meno-note">You choose this — HRT Compass never sets or changes it, and it is not a diagnosis.</div>
+        </div>
+      </div>
+
+      <!-- 2. Cycle Changes (vs the woman's own history) -->
+      <div class="card" id="cycChangeCard" style="display:none;">
+        <div class="card-h"><h3>Cycle changes</h3></div>
+        <div id="cycChange"></div>
+      </div>
+
+      <!-- 3. Estimates (only when supported by sufficient, regular data) -->
+      <div class="card">
+        <div class="card-h"><h3>Estimates</h3></div>
+        <div class="cyc-est" id="cycEst"></div>
         <div class="cyc-insight" id="cycInsight" style="display:none;"></div>
       </div>
 
+      <!-- 4. Calendar -->
       <div class="card">
         <div class="cal-head">
           <button class="cal-nav" id="calPrev">‹</button>
@@ -906,13 +956,17 @@
         <div class="cal-legend" id="calLegend"></div>
       </div>
 
+      <!-- 5. Bleeding & HRT observations -->
       <div class="card" id="selDayCard">
         <div class="card-h"><h3 id="selDayTitle">—</h3></div>
         <div class="group-label" style="margin-top:2px;">Discharge <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-faint);">· cervical mucus</span></div>
         <div class="chips wrap" id="dischargeChips"></div>
+        <div class="group-label">Bleeding type <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-faint);">· optional, your own note</span></div>
+        <div class="chips wrap" id="selBleedType"></div>
         <div class="group-label">Cycle signs <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-faint);">· what your body shows</span></div>
         <div id="signGroups"></div>
         <div class="sel-summary" id="selDaySummary"></div>
+        <div class="bleed-safety" id="bleedSafety" style="display:none;"></div>
       </div>
 
       <div class="card">
@@ -1336,6 +1390,9 @@ const SCORE_ITEMS = [
   {id:'histamine', name:'Histamine / allergy', better:'low'},
 ];
 const DBLEED = ['none','spotting','light','medium','heavy'];
+/* Optional bleeding NATURE (self-reported). Separate from intensity above and from DB.periods.
+   Setting a type NEVER creates a period record and NEVER resets Cycle Day 1. */
+const BLEEDTYPE=[['period','Period'],['spotting','Spotting'],['withdrawal','Possible withdrawal bleed'],['unexpected','Unexpected bleed'],['uncertain','Uncertain']];
 // Divigel site rotation (follows applications, not dates)
 const HRT_SITE_ROTATION = [
   { side:'left',  area:'lower', label:'Left Lower'  },
@@ -2029,6 +2086,7 @@ function renderToday(){
   document.querySelectorAll('#negMetrics [data-xid]').forEach(w=>paintExtra(w.dataset.xid));
   paintHrt();
   document.querySelectorAll('#dayBleedChips .chip').forEach(c=>c.classList.toggle('sel', (curDay().bleeding||'')===c.dataset.dbleed));
+  renderBleedTypeChips('todayBleedType', curDate);
   document.querySelectorAll('#appetiteChips .chip').forEach(c=>c.classList.toggle('sel', (curDay().appetite||'')===c.dataset.appetite));
   renderGel();
   renderMeds();
@@ -2165,11 +2223,10 @@ function updateCycleHeader(){
   document.getElementById('cycleDayHdr').textContent = cd?('#'+cd):'—';
 }
 function renderCycle(){
-  const cd=currentCycleDay();
-  document.getElementById('cycleDayBig').textContent = cd?cd:'—';
-  const s=latestPeriodStart(today());
-  document.getElementById('cycleDaySub').textContent = s? ('Since '+fmtShort(s)) : 'No period logged yet';
+  renderCycleStage();
+  renderCycleChanges();
   renderCycEstimate();
+  renderBleedingSafety();
   if(!selectedCalDate) selectedCalDate=today();
   if(!calMonth){ const t=today(); calMonth={y:+t.slice(0,4), m:+t.slice(5,7)-1}; }
   renderCalendar();
@@ -2236,28 +2293,58 @@ function nextSev(cur){ return cur===true?'mild':cur==='mild'?'moderate':cur==='m
 function setSign(iso,key,val){ const day=DB.days[iso]||(DB.days[iso]={}); day.cycleSigns=day.cycleSigns||{}; day.cycleSigns[key]=val; save(); }
 let calMonth=null, selectedCalDate=null;
 function periodStartsSorted(){ return DB.periods.map(p=>p.start).filter(Boolean).slice().sort(); }
+/* ============================================================
+   CYCLE_CFG — product thresholds for cycle estimates.
+   ⚠ CLINICAL REVIEW PENDING — these are PRODUCT defaults, NOT
+   clinically validated. Documented here and kept configurable so
+   a qualified professional can review/adjust before external release:
+     • minStarts   : period START dates needed for any estimate
+                     (4 starts = 3 completed cycle-length intervals).
+     • regularSD   : max standard deviation (days) to treat cycles
+                     as "regular enough" to show an ovulation day.
+     • regularRange: max (longest-shortest) spread (days) for "regular".
+     • lutealDays  : luteal-phase approximation (ovulation ≈ next
+                     period − lutealDays). Individual luteal length varies.
+     • fertileDays : length of the approximate fertile window
+                     (ovulation day and the days before it).
+     • changeTolFloor: minimum +/- tolerance (days) for early/late,
+                     so natural variation is not called abnormal.
+   None of these are presented to users as medically approved.
+   ============================================================ */
+const CYCLE_CFG = { minStarts:4, regularSD:4, regularRange:7, lutealDays:14, fertileDays:6, changeTolFloor:2 };
+
 function cycleLengths(){ const s=periodStartsSorted(), L=[]; for(let i=1;i<s.length;i++){ const d=daysBetween(s[i-1],s[i]); if(d>=15&&d<=60) L.push(d); } return L; }
 function _median(a){ if(!a.length) return null; const b=a.slice().sort((x,y)=>x-y); const m=Math.floor(b.length/2); return b.length%2? b[m] : (b[m-1]+b[m])/2; }
 function _sd(a){ if(a.length<2) return 0; const m=a.reduce((x,y)=>x+y,0)/a.length; return Math.sqrt(a.reduce((s,v)=>s+(v-m)*(v-m),0)/a.length); }
 function estimateCycle(){
   const all=cycleLengths();
-  if(all.length<1) return {enough:false, n:0};
+  const starts=periodStartsSorted();
+  const nStarts=starts.length;
+  const lastStart=nStarts?starts[nStarts-1]:null;
+  // Need CYCLE_CFG.minStarts period-START dates (4 starts = 3 completed cycle-length intervals).
+  if(nStarts < CYCLE_CFG.minStarts || all.length < (CYCLE_CFG.minStarts-1)){
+    return {enough:false, tier:'none', n:all.length, nStarts, lastStart};
+  }
   const recent=all.slice(-6);
   const med=_median(recent), sd=_sd(recent), avg=recent.reduce((a,b)=>a+b,0)/recent.length;
-  const minLen=Math.min.apply(null,recent), maxLen=Math.max.apply(null,recent);
-  const starts=periodStartsSorted(); const lastStart=starts[starts.length-1];
+  const minLen=Math.min.apply(null,recent), maxLen=Math.max.apply(null,recent); const range=maxLen-minLen;
   const nextPeriod=addDays(lastStart, Math.round(med));
-  const periodPad=Math.max(1, Math.min(5, Math.round(sd)));
+  const periodPad=Math.max(1, Math.min(7, Math.round(sd)));
   const nextEarliest=addDays(nextPeriod,-periodPad), nextLatest=addDays(nextPeriod,periodPad);
-  // Ovulation from an estimated luteal-phase RANGE (12–16 days before next period), widened when cycles are irregular.
-  const varPad=Math.max(0, Math.min(3, Math.round(sd)-1));
-  const ovStart=addDays(nextPeriod,-16-varPad), ovEnd=addDays(nextPeriod,-12+varPad);
-  const center=addDays(nextPeriod,-14);
-  const fertileStart=addDays(ovStart,-3), fertileEnd=addDays(ovEnd,1);
-  return {enough:true, n:recent.length, lastStart, nextPeriod, nextEarliest, nextLatest, periodPad,
-          center, ovStart, ovEnd, fertileStart, fertileEnd,
-          med, sd, avg:Math.round(avg*10)/10, minLen, maxLen};
+  const regular = sd<=CYCLE_CFG.regularSD && range<=CYCLE_CFG.regularRange;
+  const base={enough:true, n:recent.length, nStarts, lastStart, nextPeriod, nextEarliest, nextLatest, periodPad,
+              med, sd:Math.round(sd*10)/10, avg:Math.round(avg*10)/10, minLen, maxLen, range};
+  if(!regular) return Object.assign(base,{tier:'irregular'});
+  // Regular: ONE estimated ovulation day + an approximate fertile window (fertileDays ending on ovDay).
+  // All estimated — never confirmed. 14-day luteal + 6-day window are product approximations (see CYCLE_CFG).
+  const ovDay=addDays(nextPeriod, -CYCLE_CFG.lutealDays);
+  const fertileStart=addDays(ovDay, -(CYCLE_CFG.fertileDays-1)), fertileEnd=ovDay;
+  return Object.assign(base,{tier:'regular', ovDay, center:ovDay, ovStart:ovDay, ovEnd:ovDay, fertileStart, fertileEnd});
 }
+/* Menopause stage (self-reported only) + whether cycle/ovulation estimates apply. Reversible; never auto-set. */
+function menoStage(){ return (DB.meta && DB.meta.menopauseStage) || ''; }
+function estimatesSuppressed(){ const s=menoStage(); return s==='postmenopause' || s==='other'; }
+function ovulationShown(e){ return e && e.tier==='regular' && !!e.ovDay && !estimatesSuppressed(); }
 /* ---- Supporting-evidence (confidence) & personal pattern layers — derived, no new stored fields ---- */
 function signByKey(key){ for(const g of SIGN_GROUPS){ const s=g[1].find(x=>x.key===key); if(s) return s; } return null; }
 function symStateKey(d,key){ const s=signByKey(key); return s? symState(d,s) : null; }
@@ -2336,6 +2423,7 @@ function _pickPattern(label, cd, ov, usable, lenSpread){
     else if(ov.count>cd.count) useOv=true;
     // otherwise prefer the more intuitive cycle-day description
   }
+  if(useOv && ov && ov.hi<=-6 && cdOk) useOv=false;               // symptoms well before ovulation read more clearly as a cycle-day (menstrual-phase) pattern
   const chosen=useOv?ov:cd; const support=chosen.count, spread=chosen.spread, prop=support/usable;
   let word='Possible pattern';
   if(support>=4 && spread<=2 && prop>=0.6) word='Consistent pattern';
@@ -2348,26 +2436,130 @@ function _pickPattern(label, cd, ov, usable, lenSpread){
   return {text, rank: support*10 - spread + (useOv?1:0)};
 }
 function renderCycEstimate(){
-  const el=document.getElementById('cycEst'); const e=estimateCycle();
+  const el=document.getElementById('cycEst'); if(!el) return;
+  const e=estimateCycle();
   const ins=document.getElementById('cycInsight');
-  if(!e.enough){ el.className='cyc-est none'; el.textContent='Not enough cycle history yet for an estimate.'; if(ins) ins.style.display='none'; return; }
+  const hideIns=()=>{ if(ins){ ins.style.display='none'; ins.textContent=''; } };
+  const showPattern=()=>{ const patt=detectCyclePattern(); if(ins){ if(patt){ ins.style.display='block'; ins.textContent=patt; } else hideIns(); } };
+  // Self-reported menopause stage can suppress estimates — reversible, no data removed.
+  if(estimatesSuppressed()){
+    el.className='cyc-est none';
+    el.textContent='Cycle and ovulation estimates aren’t shown for this stage. You can still log any bleeding below, and HRT Compass will flag anything worth mentioning to your doctor.';
+    hideIns(); return;
+  }
+  if(!e.enough){
+    el.className='cyc-est none';
+    el.textContent='Log at least '+CYCLE_CFG.minStarts+' periods and HRT Compass can estimate your cycle. So far: '+(e.nStarts||0)+'.';
+    hideIns(); return;
+  }
+  if(e.tier!=='regular'){
+    el.className='cyc-est none';
+    el.innerHTML='Your recent cycles vary too much to estimate ovulation reliably, so ovulation and fertile dates aren’t shown. '+
+      'Your next period is roughly <b>'+fmtShort(e.nextEarliest)+' – '+fmtShort(e.nextLatest)+'</b>.'+
+      '<div class="er" style="color:var(--ink-faint);font-size:.7rem;margin-top:6px;">Based on your last '+e.n+' cycles (median '+e.med+' d, range '+e.minLen+'–'+e.maxLen+'). An estimate, not a prediction — not suitable for contraception or planning a pregnancy.</div>';
+    showPattern(); return;
+  }
+  // Regular tier: ONE estimated ovulation day inside a separately labelled approximate fertile window.
   el.className='cyc-est';
   const conf=estimateConfidence(e);
-  const nextTxt = e.periodPad>=2 ? (fmtShort(e.nextEarliest)+' – '+fmtShort(e.nextLatest)) : ('around '+fmtShort(e.nextPeriod));
-  const oneCycle = e.n===1 ? ' · only 1 cycle so far, treat as rough' : '';
+  const nextTxt = e.periodPad>=2 ? ('around '+fmtShort(e.nextPeriod)+' ('+fmtShort(e.nextEarliest)+'–'+fmtShort(e.nextLatest)+')') : ('around '+fmtShort(e.nextPeriod));
   let confLine='';
   if(conf){
     if(conf.level==='Calendar estimate') confLine='<div class="er conf cal">Calendar estimate</div>';
     else confLine='<div class="er conf sup">'+conf.level+(conf.supports.length?': '+conf.supports.join(' + '):'')+'</div>';
   }
   el.innerHTML=
-    `<div class="er"><span class="lbl">Est. ovulation</span><br><span class="val">${fmtShort(e.ovStart)} – ${fmtShort(e.ovEnd)}</span></div>`+
-    `<div class="er"><span class="lbl">Est. fertile window</span><br><span class="val">${fmtShort(e.fertileStart)} – ${fmtShort(e.fertileEnd)}</span></div>`+
-    `<div class="er"><span class="lbl">Est. next period</span><br><span class="val">${nextTxt}</span></div>`+
+    '<div class="er"><span class="lbl">Estimated ovulation</span><br><span class="val">~'+fmtShort(e.ovDay)+'</span> <span style="color:var(--ink-faint);font-size:.72rem;">± a few days</span></div>'+
+    '<div class="er"><span class="lbl">Approx. fertile window</span><br><span class="val">'+fmtShort(e.fertileStart)+' – '+fmtShort(e.fertileEnd)+'</span></div>'+
+    '<div class="er"><span class="lbl">Est. next period</span><br><span class="val">'+nextTxt+'</span></div>'+
     confLine+
-    `<div class="er" style="color:var(--ink-faint);font-size:.7rem;">Based on your last ${e.n} cycle${e.n===1?'':'s'} (median ${e.med} d, range ${e.minLen}–${e.maxLen})${oneCycle}. All estimated — never confirmed ovulation.</div>`;
-  const patt=detectCyclePattern();
-  if(ins){ if(patt){ ins.style.display='block'; ins.textContent=patt; } else { ins.style.display='none'; ins.textContent=''; } }
+    '<div class="er" style="color:var(--ink-faint);font-size:.7rem;">Based on your last '+e.n+' cycles (median '+e.med+' d, range '+e.minLen+'–'+e.maxLen+'). All estimated — never confirmed ovulation. Not suitable for contraception or planning a pregnancy.</div>';
+  showPattern();
+}
+
+/* ---------- Cycle Stage: self-reported menopause stage + estimated phase (kept distinct) ---------- */
+const MENO_STAGES=[['regular','Regular cycles'],['perimenopause','Perimenopause'],['postmenopause','Postmenopause'],['unsure','Unsure'],['other','No periods (other reason)']];
+const PHASES=[['auto','Auto'],['menstrual','Menstrual'],['follicular','Follicular'],['ovulation','Ovulation'],['luteal','Luteal']];
+function phaseLabel(k){ const p=PHASES.find(x=>x[0]===k); return p?p[1]:k; }
+// Period-level bleeding only (NOT spotting/withdrawal/unexpected/uncertain) counts toward the menstrual phase.
+function dayHasPeriodBleed(iso){ const d=DB.days[iso]; if(!d) return false; if(d.bleeding==='light'||d.bleeding==='medium'||d.bleeding==='heavy') return true; if(d.bleedType==='period') return true; return false; }
+function cyclePhaseAuto(){
+  if(estimatesSuppressed()) return null;                // postmenopause / other → no menstrual-cycle phase
+  const s=latestPeriodStart(today()); if(!s) return null;
+  const t=today();
+  if(inPeriodRecord(t) || dayHasPeriodBleed(t)) return 'menstrual';
+  const e=estimateCycle();
+  if(e.tier!=='regular') return null;                 // can't place follicular/ovulation/luteal without a reliable estimate
+  const ovCd = e.med - CYCLE_CFG.lutealDays;           // estimated ovulation cycle-day this cycle
+  const cd = daysBetween(s,t)+1;
+  if(cd < ovCd-1) return 'follicular';
+  if(cd <= ovCd+1) return 'ovulation';
+  return 'luteal';
+}
+function setMenoStage(v){ if(!DB.meta) DB.meta={}; DB.meta.menopauseStage = (menoStage()===v ? '' : v); save(); renderCycle(); updateCycleHeader(); }
+function setCyclePhaseMode(v){ if(!DB.meta) DB.meta={}; DB.meta.cyclePhaseMode = v; save(); renderCycleStage(); }
+function renderCycleStage(){
+  const cd=currentCycleDay();
+  const big=document.getElementById('cycleDayBig'); if(big) big.textContent = cd?cd:'—';
+  const s=latestPeriodStart(today());
+  const sub=document.getElementById('cycleDaySub'); if(sub) sub.textContent = s? ('Since '+fmtShort(s)) : 'No period logged yet';
+  const mg=document.getElementById('menoStageChips');
+  if(mg){ const cur=menoStage(); mg.querySelectorAll('button').forEach(b=>b.classList.toggle('sel', b.dataset.meno===cur)); }
+  const mode=(DB.meta&&DB.meta.cyclePhaseMode)||'auto';
+  const seg=document.getElementById('phaseSeg');
+  if(seg) seg.querySelectorAll('button').forEach(b=>b.classList.toggle('sel', b.dataset.phase===mode));
+  const out=document.getElementById('phaseOut');
+  if(out){
+    if(mode==='auto'){
+      const p=cyclePhaseAuto();
+      out.innerHTML = p ? ('Estimated phase: <b>'+phaseLabel(p)+'</b> <span class="ph-note">· an estimate, never confirmed ovulation</span>')
+                        : 'Estimated phase: <b>not available</b> <span class="ph-note">· needs more regular cycle history</span>';
+    } else {
+      out.innerHTML = 'Self-reported phase: <b>'+phaseLabel(mode)+'</b> <span class="ph-note">· your own note, not a medical result</span>';
+    }
+  }
+}
+/* ---------- Cycle Changes: compare against the woman's OWN history (latest interval excluded from its baseline) ---------- */
+function cycleChange(){
+  if(estimatesSuppressed()) return null;
+  const starts=periodStartsSorted(); const m=starts.length; const out={};
+  // "No period recorded yet" — baseline = all intervals (needs >=3 intervals => >= minStarts starts)
+  if(m>=CYCLE_CFG.minStarts){
+    const allInt=[]; for(let i=1;i<m;i++){ const g=daysBetween(starts[i-1],starts[i]); if(g>=15&&g<=60) allInt.push(g); }
+    const recentA=allInt.slice(-6);
+    if(recentA.length>=3){
+      const medA=Math.round(_median(recentA)), tolA=Math.max(CYCLE_CFG.changeTolFloor, Math.round(_sd(recentA)));
+      const gapNow=daysBetween(starts[m-1], today());
+      if(gapNow > medA+tolA) out.noPeriod='No period recorded yet — about '+(gapNow-medA)+' days later than your usual ~'+medA+'-day cycle. You can log a period below when it starts.';
+    }
+  }
+  // Latest completed interval vs a baseline that EXCLUDES it (needs >=3 baseline intervals => >=5 starts)
+  if(m>=5){
+    const baseline=[]; for(let i=1;i<m-1;i++){ const g=daysBetween(starts[i-1],starts[i]); if(g>=15&&g<=60) baseline.push(g); }
+    const recentB=baseline.slice(-6);
+    if(recentB.length>=3){
+      const medB=Math.round(_median(recentB)), tolB=Math.max(CYCLE_CFG.changeTolFloor, Math.round(_sd(recentB)));
+      const latest=daysBetween(starts[m-2], starts[m-1]);
+      if(latest>=15&&latest<=60){
+        if(latest < medB-tolB) out.latest={cls:'early', txt:'Earlier than usual — about '+(medB-latest)+' days sooner than your typical ~'+medB+'-day cycle.'};
+        else if(latest > medB+tolB) out.latest={cls:'late', txt:'Later than usual — about '+(latest-medB)+' days longer than your typical ~'+medB+'-day cycle.'};
+        else out.latest={cls:'within', txt:'Within your usual range (~'+medB+'-day cycle).'};
+      }
+    }
+  }
+  return (out.noPeriod||out.latest)? out : null;
+}
+function renderCycleChanges(){
+  const card=document.getElementById('cycChangeCard'), el=document.getElementById('cycChange');
+  if(!card||!el) return;
+  const c=cycleChange();
+  if(!c){ card.style.display='none'; el.innerHTML=''; return; }
+  card.style.display='';
+  let html='';
+  if(c.latest) html+='<div class="chg '+c.latest.cls+'">'+c.latest.txt+'</div>';
+  if(c.noPeriod) html+='<div class="chg late">'+c.noPeriod+'</div>';
+  html+='<div class="chg-foot">Compared with your own history — descriptive only, not a medical judgement. HRT Compass never adds a period for you.</div>';
+  el.innerHTML=html;
 }
 
 /* ---------- Calendar ---------- */
@@ -2388,9 +2580,9 @@ function calCellClasses(iso, e){
   if(bl==='light'||bl==='medium'||bl==='heavy') cls.push('period');
   else if(bl==='spotting') cls.push('spot');
   else if(inPeriodRecord(iso)) cls.push('period');
-  if(e.enough && iso>=e.lastStart){ // predictions: current/future cycle only
+  if(ovulationShown(e) && iso>=e.lastStart){ // predictions: current/future cycle only, regular tier only
     if(iso>=e.fertileStart && iso<=e.fertileEnd && !cls.includes('period') && !cls.includes('spot')) cls.push('fertile');
-    if(iso>=e.ovStart && iso<=e.ovEnd) cls.push(iso===e.center?'ovc':'ov');
+    if(iso===e.ovDay) cls.push('ovc');
   }
   if(iso===today()) cls.push('today');
   if(hasCycleSign(iso)) cls.push('signdot');
@@ -2416,6 +2608,37 @@ function renderCalendar(){
     '<span><i class="lg-fertile"></i>Fertile (est)</span><span><i class="lg-ov"></i>Ovulation (est)</span>'+
     '<span><i class="lg-today"></i>Today</span><span>• signs logged</span>';
 }
+/* ---------- Bleeding type (self-reported nature) + safety note ---------- */
+function renderBleedTypeChips(containerId, iso){
+  const box=document.getElementById(containerId); if(!box) return;
+  const d=DB.days[iso]||{}; box.innerHTML='';
+  BLEEDTYPE.forEach(([val,label])=>{
+    const b=document.createElement('button'); b.className='chip'+((d.bleedType||'')===val?' sel':''); b.textContent=label;
+    b.onclick=()=>{ const day=DB.days[iso]||(DB.days[iso]={}); day.bleedType = (day.bleedType===val ? '' : val); save();
+      renderBleedTypeChips(containerId, iso); renderBleedingSafety(); if(containerId==='selBleedType') renderCalendar(); };
+    box.appendChild(b);
+  });
+}
+function recentBleedDays(n){ const out=[]; const cutoff=addDays(today(),-n);
+  Object.keys(DB.days).forEach(iso=>{ if(iso>=cutoff && iso<=today()){ const d=DB.days[iso]; const bl=(d.bleeding&&d.bleeding!=='none')?d.bleeding:null; if(bl||d.bleedType) out.push({iso,bl,bt:d.bleedType}); } });
+  return out; }
+function bleedingSafetyNeeded(){
+  const stage=menoStage();
+  if((stage==='postmenopause'||stage==='other') && recentBleedDays(90).length) return true;  // any bleeding after menopause
+  if(recentBleedDays(90).some(r=>r.bt==='unexpected')) return true;                            // user-flagged unexpected
+  if(recentBleedDays(30).filter(r=>r.bl==='heavy').length>=3) return true;                      // heavy / persistent
+  return false;
+}
+/* ⚠ CLINICAL REVIEW PENDING — the triggers above and the wording below concern postmenopausal /
+   heavy / persistent / unexpected bleeding and MUST be validated against current clinical guidelines
+   by a qualified professional before external release. Not presented as medically approved. */
+const BLEED_SAFETY_TEXT='Bleeding after menopause, or bleeding that is unexpected, heavy or doesn’t settle, is worth checking with your doctor — don’t assume it’s caused by your HRT.';
+function renderBleedingSafety(){
+  const el=document.getElementById('bleedSafety'); if(!el) return;
+  if(bleedingSafetyNeeded()){ el.style.display=''; el.textContent=BLEED_SAFETY_TEXT; }
+  else { el.style.display='none'; el.textContent=''; }
+}
+
 /* ---------- Selected-day panel ---------- */
 function renderSelectedDay(){
   const iso=selectedCalDate||today(); const d=DB.days[iso]||{};
@@ -2427,9 +2650,17 @@ function renderSelectedDay(){
     b.onclick=()=>{ const day=DB.days[iso]||(DB.days[iso]={}); day.discharge=val; save(); renderSelectedDay(); renderCalendar(); }; dc.appendChild(b); });
   // grouped cycle signs
   renderSignGroups(iso);
+  // optional bleeding TYPE (self-reported nature) for this day
+  renderBleedTypeChips('selBleedType', iso);
   // read-only summary
   const dl=n=>DISCHARGE.find(x=>x[0]===n); const dLabel=d.discharge?(dl(d.discharge)?dl(d.discharge)[1]:d.discharge):'—';
-  const rows=[['Discharge',dLabel],['Bleeding',d.bleeding?cap(d.bleeding):'—'],['Migraine',d.migraine?'Yes':'—']];
+  const btl=d.bleedType?((BLEEDTYPE.find(x=>x[0]===d.bleedType)||[])[1]||d.bleedType):null;
+  let hrtTxt='—';
+  if(d.meds){ const tk=Object.keys(d.meds).filter(k=>d.meds[k]&&d.meds[k].taken==='yes'); if(tk.length) hrtTxt=tk.map(k=>cap(k)).join(', '); }
+  else if(d.hrt) hrtTxt='Yes';
+  const rows=[['Discharge',dLabel],['Bleeding',d.bleeding?cap(d.bleeding):'—']];
+  if(btl) rows.push(['Bleeding type',btl]);
+  rows.push(['HRT that day',hrtTxt],['Migraine',d.migraine?'Yes':'—']);
   if(d.headache!=null) rows.push(['Headache', d.headache+'/10']);
   if(d.constipation!=null) rows.push(['Constipation', d.constipation+'/10']);
   if(d.libido!=null) rows.push(['Libido', d.libido+'/10']);
@@ -3153,6 +3384,8 @@ function bind(){
     document.querySelectorAll('#bleedChips .chip').forEach(x=>x.classList.toggle('sel',x===c));
   });
   document.getElementById('addPeriod').onclick=addPeriod;
+  document.querySelectorAll('#phaseSeg button').forEach(b=>b.onclick=()=>setCyclePhaseMode(b.dataset.phase));
+  document.querySelectorAll('#menoStageChips button').forEach(b=>b.onclick=()=>setMenoStage(b.dataset.meno));
   document.getElementById('calPrev').onclick=()=>{ if(!calMonth)return; let{y,m}=calMonth; m--; if(m<0){m=11;y--;} calMonth={y,m}; renderCalendar(); };
   document.getElementById('calNext').onclick=()=>{ if(!calMonth)return; let{y,m}=calMonth; m++; if(m>11){m=0;y++;} calMonth={y,m}; renderCalendar(); };
   // daily bleeding (Today)
